@@ -1,6 +1,9 @@
 import wollok.game.*
 import nave.*
 import niveles.*
+import enemigos.*
+import proyectiles.*
+import ambiente.* 	
 
 program juego {
 	game.title("Juego Base")
@@ -9,6 +12,6 @@ program juego {
 	game.boardGround("fondo.jpg")
 	tutorial1.iniciar()
 	game.showAttributes(enemigo)
-	game.start()
-}
+	game.start() 
+} 
 
