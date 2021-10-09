@@ -1,8 +1,14 @@
 import wollok.game.*
-import pepita.*
+import nave.*
+import niveles.*
 
 program juego {
 	game.title("Juego Base")
-	game.addVisual(pepita)
+	game.height(10)
+	game.width(20)
+	game.boardGround("fondo.jpg")
+	tutorial1.iniciar()
+	game.showAttributes(enemigo)
 	game.start()
 }
+
