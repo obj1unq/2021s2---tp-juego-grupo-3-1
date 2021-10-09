@@ -1,8 +1,16 @@
 import wollok.game.*
-import pepita.*
+import main.*
+import enemigos.*
+import config.*
+
 
 program juego {
+	config.configurarTeclas()
 	game.title("Juego Base")
-	game.addVisual(pepita)
+	game.height(10)
+	game.width(10)
+	game.addVisual(main)
+	game.addVisual(enemy1)
+	game.boardGround("bg1.png")
 	game.start()
 }
