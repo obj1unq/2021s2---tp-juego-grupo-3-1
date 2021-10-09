@@ -101,12 +101,11 @@ object enemigo{
 	}
 	
 	method tocameSiPodes(){
-	self.movimientoVertical().siguiente(self.position() ) 
+		position = self.movimientoVertical().siguiente(self.position() ) 
 	}
 	
 	method movimientoVertical(){
-		var resul =0.randomUpTo(1) 
-		return if(resul == 0) arriba else abajo 
+		return if(0.randomUpTo(2).roundUp()  == 1) arriba else abajo 
    				 
 	}
 	method avanzar(){
