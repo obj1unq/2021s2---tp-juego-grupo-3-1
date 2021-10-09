@@ -40,7 +40,7 @@ object config {
 	 }
 		
 	method moviendoseEnTablero(){
-		game.onTick(300, "ME MUEVO", { enemigo.tocameSiPodes();enemigo.avanzar()})
+		game.onTick(800, "ME MUEVO", { enemigo.tocameSiPodes();enemigo.avanzar()})
 	}
 	
 }	
