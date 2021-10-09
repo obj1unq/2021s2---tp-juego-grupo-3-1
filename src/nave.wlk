@@ -1,4 +1,5 @@
 import wollok.game.*
+import direcciones.*
 
 
 object nave{
@@ -9,19 +10,6 @@ object nave{
 		return "nave1.png"
 		
 	}
-	
-//	method moverA(_direccion){
-//
-//		if(_direccion == "up"){
-//			position = position.up(1)
-//		}	if(_direccion == "down"){
-//				position = position.down(1)
-//			}if(_direccion == "left"){
-//				position = position.left(1)
-//			}if(_direccion == "right"){
-//				position = position.right(1)
-//			}
-//		}
 	
 	method mover(_direccion) {
         direccion = _direccion
@@ -111,47 +99,4 @@ object enemigo{
 	method avanzar(){
 		position = position.left(1)
 	}
-}
-
-// direcciones
-
-object izquierda {
-	method siguiente(posicion) {
-		return posicion.left(1)
-	}
-	
-	method sufijo() {
-		return "izq"
-	}
-}
-
-object derecha {
-	method siguiente(posicion) {
-		return posicion.right(1)
-	}
-	
-	method sufijo() {
-		return "der"
-	}
-		
-}
-
-object arriba {
-	method siguiente(posicion) {
-		return posicion.up(1)
-	}
-	
-	method sufijo() {
-		return "arriba"
-	}		
-}
-
-object abajo {
-	method siguiente(posicion) {
-		return posicion.down(1)
-	}
-	method sufijo() {
-		return "abajo"
-	}		
-		
 }
