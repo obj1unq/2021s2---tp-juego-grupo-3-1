@@ -14,6 +14,7 @@ object tutorial1 {
 		game.addVisual(bordeInf)
 		game.addVisual(nave)
 		game.addVisual(proyectil)
+		game.addVisual(proyectil1)
 		game.addVisual(proyectilEnemigo)
 		game.addVisual(enemigo)
 		game.addVisual(escudo)
@@ -24,6 +25,7 @@ object tutorial1 {
 		config.configurarPotenciadores()
 		config.configurarColisiones(nave)
 		config.configurarColisiones(proyectil)
+		config.configurarColisiones(proyectil1)
 		config.configurarColisiones(proyectilEnemigo)
 		config.configurarColisiones(enemigo)
 		config.configurarColisiones(escudo)
@@ -50,7 +52,7 @@ object config {
 	}
 	
 	method configurarDisparo(){
-		game.onTick(100, "RAFAGA",{proyectil.saleDisparado()})
+		game.onTick(100, "RAFAGA",{proyectil.saleDisparado();proyectil1.saleDisparado()})
 		game.onTick(100, "DISPARO ENEMIGO",{ proyectilEnemigo.saleDisparado()})
 		//game.onTick(200,"EXPLOSION",{enemigo.desaparece()})
 	}

@@ -6,7 +6,7 @@ import niveles.*
 
 object nave{
 	var property position = game.at(0,4)
-	var property cargador = [proyectil]
+	var property cargador = [cargaDeProyectiles]
 	var direccion
 	var explotando = false
 	var vida = 3
@@ -37,7 +37,7 @@ object nave{
 	
 	method abrirFuego(){
 				
-		cargador.forEach({ bala => bala.disparateDesde(self)})
+		cargador.forEach({ carga => carga.lanzaMisilDesdeLa(self)})
 		//self.disparar(self.siguienteProyectil()) 
 		
 	} 
