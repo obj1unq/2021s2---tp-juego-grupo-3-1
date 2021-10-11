@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="assets"/>
+	<classpathentry excluding="zombie1/|fondos/|jill/|jill/chica/|vidas/" kind="src" path="assets"/>
+	<classpathentry kind="src" path="assets/zombie1"/>
+	<classpathentry kind="src" path="assets/fondos"/>
+	<classpathentry excluding="chica/" kind="src" path="assets/jill"/>
+	<classpathentry kind="src" path="assets/jill/chica"/>
+	<classpathentry kind="src" path="assets/vidas"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
