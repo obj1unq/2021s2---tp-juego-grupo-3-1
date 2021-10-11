@@ -12,8 +12,10 @@ object enemigo{
 		return if(_impactado) "muerto.png" else "enemigo1.png"
 	}
 	
-	method impactado(){
+	
+	method impactado(algo){
 		_impactado = true		
+		self.desaparecer()
 	}
 	
 	method estaEnLaMismaPosicion(algo) {
@@ -21,10 +23,10 @@ object enemigo{
 		return position == algo.position()
 	}
 	
-	method desaparece(objeto){
-		game.removeVisual(proyectilEnemigo)
-		game.removeVisual(self)
-		game.removeVisual(objeto)
+	method desaparecer(){
+		proyectilEnemigo.remover()
+		game.schedule(1000,{=> game.removeVisual(self)})
+		game.removeTickEvent("DISPARO ENEMIGO")
 	}
 	
 	

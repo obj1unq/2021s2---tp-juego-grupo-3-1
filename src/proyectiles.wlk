@@ -9,7 +9,7 @@ object proyectil{
 	}
 	
 	method saleDisparado(){
-		if (position.x() > 0) {			
+		if (position.x() > 0) {	
 			position = position.right(1)  
 		}
 	}
@@ -18,9 +18,9 @@ object proyectil{
 		position = nave.position().right(1)
 		
 	}
-	method desaparece(objeto){
-		game.removeVisual(self)
-		game.removeVisual(objeto)
+	method impactado(algo){
+		position = game.at(-5,-8)
+		algo.impactado(self)
 	}
 	
 }
@@ -32,7 +32,7 @@ object proyectilEnemigo{
 	}
 	
 	method saleDisparado(){
-		if (position.x() > 0) {			
+		if (position.x() > 0) {
 			position = position.left(1)  
 		}
 	}
@@ -42,9 +42,13 @@ object proyectilEnemigo{
 		
 	}
 	
-	method desaparece(objeto){
-		game.removeVisual(self)
-		game.removeVisual(objeto)
+	method impactado(algo){
+		position = game.at(-9,-9)
+		
 	}
 	
+	method remover(){
+		game.removeVisual(self)
+	}
+
 }

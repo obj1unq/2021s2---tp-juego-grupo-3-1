@@ -3,7 +3,9 @@ import nave.*
 import niveles.*
 import enemigos.*
 import proyectiles.*
-import ambiente.* 	
+import ambiente.*
+import potenciadores.*
+ 	
 
 program juego {
 	game.title("Juego Base")

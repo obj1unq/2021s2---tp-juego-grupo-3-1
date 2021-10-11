@@ -2,29 +2,29 @@ import wollok.game.*
 import direcciones.*
 import enemigos.*
 import proyectiles.*
+import niveles.*
 
 object nave{
-	var property position =game.at(0,4)
+	var property position = game.at(0,4)
 	var property cargador = [proyectil]
 	var direccion
-	var property _impactado = false
+	var explotando = false
+	var vida = 3
 	
 	method image(){
-		return if(_impactado) "muerto.png"  else "nave1.png"
+		return if(explotando) "muerto.png"  else "nave1.png"
 	}
 	
-	method impactado(){
-		_impactado = true
-		game.say(self,"SALVEME JEBUS")	
-		game.removeTickEvent("ME MUEVO")
-		
-		keyboard.enter().onPressDo({game.stop()})	
+	method impactado(algo){
+		if(vida > 0){vida -= 1}else{
+			self.explotar()
+		}
 	}
 
-	method desaparece(objeto){
-		game.removeVisual(self)
-		game.removeVisual(objeto)
-	}
+//	method desaparece(objeto){
+//		game.removeVisual(self)
+//		game.removeVisual(objeto)
+//	}
 	method mover(_direccion) {
         direccion = _direccion
         self.irA(_direccion.siguiente(self.position()))
@@ -54,5 +54,12 @@ object nave{
 		cargador.add(_proyectil)
 	}
 	
+	method explotar(){
+		game.say(self,"SALVEME JEBUS")	
+		explotando = true
+		game.schedule(600, {=> game.removeVisual(self)} )
+		
+		config.finalizar()
+	}
 	
 }
