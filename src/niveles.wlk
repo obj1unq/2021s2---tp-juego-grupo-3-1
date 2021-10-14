@@ -7,9 +7,9 @@ object nivel1 {
 	
 	method iniciar() {
 		game.addVisual(personaje)
-		game.addVisual(ciclope)
+		game.addVisual(bichoAzul)
 		game.onTick(500, "Movimiento del ciclope", {=>
-			ciclope.mover(direccionAleatoria.generar())
+			bichoAzul.mover(direccionAleatoria.generar())
 		})
 	}
 }

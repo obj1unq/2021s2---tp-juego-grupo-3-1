@@ -3,7 +3,7 @@ import personaje.*
 import armas.*
 import direcciones.*
 
-object ciclope {
+object bichoAzul {
 	var property position = game.at(5, 7)
  	var vida = 6
  	var orientacion = "derecha"
