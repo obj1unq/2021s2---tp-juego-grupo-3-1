@@ -4,41 +4,30 @@ import direcciones.*
 
 object rama{
 	var property position = game.at(5,4)
+	method image() = "rama.png"	
 	
 	method sufijo() {
-		
-		return "rama"
+		return "-rama"
 	}
 	
-	method image(){
-		return "rama.png"
-	} 
 	method fuerza() {
 		return 1
 	}
 	
-	method atacar(enemigo) {
-		enemigo.recibirAtaque(self.fuerza())
-	}	
 }
 
 object espada {
-	
-	var property position = game.center()
+	var property position
+	method image() = ""
 	
 	method sufijo() {
-		return "espada"
+		return ""
 	}
+}
+
+object manos {
 	
-	method image(){
-		return "rama.png"
+	method sufijo() {
+		return ""
 	}
-	
-	method fuerza() {
-		return 3
-	}
-	
-	method atacar(enemigo) {
-		enemigo.recibirAtaque(self.fuerza())
-	}	
 }

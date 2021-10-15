@@ -6,9 +6,9 @@ import direcciones.*
 object bichoAzul {
 	var property position = game.at(5, 7)
  	var vida = 6
- 	var orientacion = "derecha"
+ 	var orientacion = derecha
 
-	method image() = "araña-" + orientacion + ".png"
+	method image() = "bichoAzul" + orientacion.sufijo() + ".png"
 	
 	method recibirAtaque(fuerza) {
 		vida = 0.max(vida - fuerza)
@@ -31,5 +31,7 @@ object bichoAzul {
 			orientacion = direccion.opuesto()
 		}
 	}
+	
+	
 	
 }

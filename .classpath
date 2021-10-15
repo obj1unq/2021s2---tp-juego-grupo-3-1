@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="personaje/|araña/|equipamiento/" kind="src" path="assets"/>
+	<classpathentry excluding="personaje/|araña/|equipamiento/|armas/|personaje/|bichoAzul/" kind="src" path="assets"/>
+	<classpathentry kind="src" path="assets/armas"/>
 	<classpathentry kind="src" path="assets/personaje"/>
-	<classpathentry kind="src" path="assets/araña"/>
-	<classpathentry kind="src" path="assets/equipamiento"/>
+	<classpathentry kind="src" path="assets/bichoAzul"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>

@@ -9,7 +9,7 @@ object config {
 		keyboard.s().onPressDo({personaje.mover(abajo)})
 		keyboard.a().onPressDo({personaje.mover(izquierda)})
 		keyboard.d().onPressDo({personaje.mover(derecha)})
-		keyboard.o().onPressDo({personaje.agarrarArmamento()})
-		
+		keyboard.o().onPressDo({personaje.agarrarItem()})
+		keyboard.k().onPressDo({personaje.soltarArma()})
 	}
 }

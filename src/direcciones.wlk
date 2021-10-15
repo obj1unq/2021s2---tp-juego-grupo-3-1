@@ -7,7 +7,7 @@ object izquierda {
 	}
 	
 	method sufijo() {
-		return "izquierda"
+		return "-izquierda"
 	}
 	
 	method esElBorde(posicion) {
@@ -26,7 +26,7 @@ object derecha {
 	}
 	
 	method sufijo() {
-		return "derecha"
+		return "-derecha"
 	}
 	
 	method esElBorde(posicion) {
@@ -45,7 +45,7 @@ object arriba {
 	}
 	
 	method sufijo() {
-		return "arriba"
+		return "-arriba"
 	}
 	
 	method esElBorde(posicion) {
@@ -65,7 +65,7 @@ object abajo {
 	}
 	
 	method sufijo() {
-		return "abajo"
+		return "-abajo"
 	}
 
 	method esElBorde(posicion) {

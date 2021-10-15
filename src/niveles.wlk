@@ -9,7 +9,7 @@ object nivel1 {
 		game.addVisual(personaje)
 		game.addVisual(bichoAzul)
 		game.addVisual(rama)
-		game.onTick(500, "Movimiento del ciclope", {=>
+		game.onTick(500, "Movimiento de bichoAzul", {=>
 			bichoAzul.mover(direccionAleatoria.generar())
 		})
 	}
