@@ -5,10 +5,10 @@ import armas.*
 object personaje {
 	
 	var property position = game.at(3, 6)
-	var orientacion = derecha
+	var property orientacion = derecha
 	var vida = 5
 	var ropa = "desnudo"
-	var arma = manos
+	var property arma = manos
 	var escudo
 		
 	method image() {

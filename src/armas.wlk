@@ -42,7 +42,8 @@ object manos {
 
 object ataqueCercano {
 	
-	method image() = "ataqueCercano.png"
+	method image() = "ataque" + personaje.arma().sufijo() + personaje.orientacion().sufijo() + ".png"
+	
 	
 	method atacar() {
 		game.addVisualIn(self, personaje.posicionEnfrente())
