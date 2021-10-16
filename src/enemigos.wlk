@@ -10,12 +10,10 @@ object bichoAzul {
 
 	method image() = "bichoAzul" + orientacion.sufijo() + ".png"
 	
-	method recibirAtaque(fuerza) {
-		vida = 0.max(vida - fuerza)
-	}
-	
-	method murio() {
-		return vida == 0
+	method recibirDanio(danio) {
+		if (vida - danio <= 0) {
+			self.desaparecer()
+		} else {vida -= danio}
 	}
 	
 	method desaparecer() {
@@ -23,14 +21,23 @@ object bichoAzul {
 	}
 	
 	method mover(direccion) {
-		if (!direccion.esElBorde(position)) {
+		if (self.puedeMover(direccion)) {
 			position = direccion.siguiente(position)
 			orientacion = direccion
-		} else {
+		} else if (self.puedeMover(direccion.opuesto())) {
 			position = direccion.opuesto().siguiente(position)
 			orientacion = direccion.opuesto()
 		}
 	}
+	
+	method puedeMover(direccion) {
+		return !direccion.esElBorde(position) && direccion.estaVacio(direccion.siguiente(position))
+	}
+	
+	
+	
+	//metodos de relleno para polimorfismo
+	method serAgarrado(){}
 	
 	
 	

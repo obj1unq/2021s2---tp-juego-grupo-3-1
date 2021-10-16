@@ -4,24 +4,24 @@ import direcciones.*
 
 object rama{
 	var property position = game.at(5,4)
-	method image() = "rama.png"	
+	method image() = "rama.png"
 	
 	method sufijo() {
 		return "-rama"
 	}
 	
-	method fuerza() {
-		return 1
+	method danio() {
+		return 2
 	}
 	
-}
-
-object espada {
-	var property position
-	method image() = ""
+	method activarAtaque() {
+		ataqueCercano.atacar()
+	}
 	
-	method sufijo() {
-		return ""
+	method recibirDanio(danio){}
+	
+	method serAgarrado() {
+		personaje.equiparArma(self)
 	}
 }
 
@@ -30,4 +30,31 @@ object manos {
 	method sufijo() {
 		return ""
 	}
+	
+	method danio() {
+		return 1
+	}
+	
+	method activarAtaque() {
+		ataqueCercano.atacar()
+	}
+}
+
+object ataqueCercano {
+	
+	method image() = "ataqueCercano.png"
+	
+	method atacar() {
+		game.addVisualIn(self, personaje.posicionEnfrente())
+		game.onCollideDo(self, {enemigo => enemigo.recibirDanio(self.danio())})
+		game.schedule(50, {=> game.removeVisual(self)})
+	}
+	
+	method danio() {
+		return personaje.fuerzaDeAtaque()
+	}
+	
+	//metodos de relleno para polimorfismo
+	method serAgarrado(){}
+	
 }

@@ -11,12 +11,17 @@ object izquierda {
 	}
 	
 	method esElBorde(posicion) {
-		return posicion.x() == 0
+		return posicion.x() == 1
 	}
 	
 	method opuesto() {
 		return derecha
 	}
+	
+	method estaVacio(posicion) {
+		return game.getObjectsIn(posicion).isEmpty()
+	}
+	
 }
 
 object derecha {
@@ -30,12 +35,16 @@ object derecha {
 	}
 	
 	method esElBorde(posicion) {
-		return posicion.x() == 14
+		return posicion.x() == 13
 	}
 
 	method opuesto() {
 		return izquierda
 	}
+	
+	method estaVacio(posicion) {
+		return game.getObjectsIn(posicion).isEmpty()
+	}	
 }
 
 object arriba {
@@ -49,13 +58,16 @@ object arriba {
 	}
 	
 	method esElBorde(posicion) {
-		return posicion.y() == 11
+		return posicion.y() == 10
 	}
 
 	method opuesto() {
 		return abajo
-	}		
+	}
 	
+	method estaVacio(posicion) {
+		return game.getObjectsIn(posicion).isEmpty()
+	}
 }
 
 object abajo {
@@ -69,13 +81,16 @@ object abajo {
 	}
 
 	method esElBorde(posicion) {
-		return posicion.y() == 0
+		return posicion.y() == 1
 	}
 	
 	method opuesto() {
 		return arriba
-	}	
+	}
 
+	method estaVacio(posicion) {
+		return game.getObjectsIn(posicion).isEmpty()
+	}
 }
 
 object direccionAleatoria {

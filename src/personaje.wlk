@@ -7,41 +7,57 @@ object personaje {
 	var property position = game.at(3, 6)
 	var orientacion = derecha
 	var vida = 5
-	var ropaje = "desnudo"
-	var arma = espada
-	const inventario = #{}
+	var ropa = "desnudo"
+	var arma = manos
+	var escudo
 		
 	method image() {
-		return "pj-" + ropaje + arma.sufijo() + orientacion.sufijo() + ".png"
+		return "pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png"
 	}
 		
 	method mover(direccion) {
-		if (!direccion.esElBorde(position)) {
+		if (!direccion.esElBorde(position) && direccion.estaVacio(direccion.siguiente(position))) {
 			position = direccion.siguiente(position)
 		}
 		orientacion = direccion
 	}
 	
-	method atacar(enemigo) {
-		enemigo.recibirAtaque(arma.fuerza())
+	method posicionEnfrente() {
+		return orientacion.siguiente(position)
+	}
+	
+	
+	
+	method fuerzaDeAtaque() {
+		return arma.danio()
+	}
+	
+	method atacar() {
+		arma.activarAtaque()
 	}
 	
 	method agarrarItem() {
-		arma = game.uniqueCollider(self)
-		game.removeVisual(game.uniqueCollider(self))
+		game.getObjectsIn(self.posicionEnfrente()).forEach({item => item.serAgarrado()})
+	}
+	
+	method equiparArma(_arma) {
+		arma = _arma
+		game.removeVisual(_arma)
+	}
+	
+	method equiparEscudo(_escudo) {
+		escudo = _escudo
+		game.removeVisual(_escudo)
+	}
+	
+	method cambiarRopa(_ropa) {
+		ropa = _ropa
+		game.removeVisual(_ropa)
 	}
 	
 	method soltarArma() {
-		game.addVisualIn(arma, position.up(1))
+		game.addVisualIn(arma, orientacion.siguiente(position))
 		arma = manos
 	}
 	
-	method cambiarRopaje(objeto){
-		ropaje = objeto.sufijo() 
-	}
-	
-	method equiparYDesparecer(objeto){
-		self.cambiarRopaje(objeto)
-		game.removeVisual(objeto)
-	}
 }

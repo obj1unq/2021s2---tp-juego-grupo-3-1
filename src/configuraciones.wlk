@@ -1,6 +1,7 @@
 import wollok.game.*
 import direcciones.*
 import personaje.*
+import armas.*
 
 object config {
 	
@@ -9,7 +10,9 @@ object config {
 		keyboard.s().onPressDo({personaje.mover(abajo)})
 		keyboard.a().onPressDo({personaje.mover(izquierda)})
 		keyboard.d().onPressDo({personaje.mover(derecha)})
-		keyboard.o().onPressDo({personaje.agarrarItem()})
-		keyboard.k().onPressDo({personaje.soltarArma()})
+		keyboard.k().onPressDo({personaje.agarrarItem()})
+		keyboard.p().onPressDo({personaje.soltarArma()})
+		keyboard.j().onPressDo({personaje.atacar()})
 	}
+	
 }
