@@ -4,22 +4,66 @@ import personaje.*
 import direcciones.*
 import armas.*
 import decorado.*
+import configuraciones.*
 
-object nivel1 {
-	
+class Nivel {
 	method iniciar() {
+		game.clear()
+		config.teclado()
+		game.boardGround("background.jpg")
 		game.addVisual(personaje)
-		//shace el addvisual ded todos los bichos que contienen el creador
-		creadorDeEnemigos.dibujarBichos()
-		// mueve todos lo bichos
-		creadorDeEnemigos.moverATodos()
-		game.addVisual(rama)
-		game.addVisualIn(tumba1, game.at(2, 3))
-		game.addVisualIn(tumba2, game.at(4, 5))
-		game.addVisualIn(tumba3, game.at(6, 7))
-		
+		self.agregarItems()
+		self.agregarEnemigos()
+		self.agregarDecoracion()
+		self.agregarPuerta()
+	}
+
+	method siguienteNivel() {}
+	method agregarDecoracion() {}
+	method agregarEnemigos() {}
+	method agregarItems() {}
+	
+	method obtenerDecoracion(){
+		return new Decorado(
+			image = self.obtenerNombreAleatorio(),
+			position = self.posicionAleatoria()
+		)
+	}
+
+	method agregarPuerta(){
+		puerta.nivelActual(self)
+		game.addVisual(puerta)
+	}
+
+	method obtenerNombreAleatorio(){
+		return "tumba" + 1.randomUpTo(3).roundUp().toString() + ".png"
+	}
+
+	method posicionAleatoria(){
+		return game.at(1.randomUpTo(10), 1.randomUpTo(10))
 	}
 }
 
+object nivel1 inherits Nivel {
+	override method agregarItems(){
+		game.addVisual(rama)
+	}
 
+	override method agregarDecoracion(){
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+	}
 
+	override method agregarEnemigos(){
+		creadorDeEnemigos.dibujarBichos()
+		creadorDeEnemigos.moverATodos()
+	}
+
+	override method siguienteNivel() {
+		nivel2.iniciar()
+	}
+}
+
+object nivel2 inherits Nivel {
+}

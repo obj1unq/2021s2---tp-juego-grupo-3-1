@@ -1,26 +1,22 @@
 import wollok.game.*
+import niveles.*
 
+class Decorado {
+	var property image
+	var property position
 
-object tumba1 {
-	method image() = "tumba1.png"
+	method serAgarrado(){}
+	method recibirDanio(danio){}
+}
+
+object puerta{
+	var property nivelActual
 	
-	//metodos de relleno para polimorfismo
-	method serAgarrado(){}	
-	method recibirDanio(danio){}
-}
-
-object tumba2 {
-	method image() = "tumba2.png"
-
-	//metodos de relleno para polimorfismo
-	method serAgarrado(){}
-	method recibirDanio(danio){}
-}
-
-object tumba3 {
-	method image() = "tumba3.png"
-
-	//metodos de relleno para polimorfismo
-	method serAgarrado(){}
+	method image(){ return "puerta.png" }
+	method position(){ return game.at(12, 11)}
+	
+	method serAgarrado(){
+		nivelActual.siguienteNivel()
+	}
 	method recibirDanio(danio){}
 }

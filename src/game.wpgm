@@ -6,11 +6,8 @@ import enemigos.*
 import niveles.*
 
 program game {
-
 	game.width(15)
 	game.height(12)
-	game.boardGround("background.jpg")
-	config.teclado()
 	nivel1.iniciar()
 	game.start()
 }
