@@ -9,13 +9,17 @@ object nivel1 {
 	
 	method iniciar() {
 		game.addVisual(personaje)
-		game.addVisual(bichoAzul)
+		//shace el addvisual ded todos los bichos que contienen el creador
+		creadorDeEnemigos.dibujarBichos()
+		// mueve todos lo bichos
+		creadorDeEnemigos.moverATodos()
 		game.addVisual(rama)
 		game.addVisualIn(tumba1, game.at(2, 3))
 		game.addVisualIn(tumba2, game.at(4, 5))
 		game.addVisualIn(tumba3, game.at(6, 7))
-		game.onTick(1200, "Movimiento de bichoAzul", {=>
-			bichoAzul.mover(direccionAleatoria.generar())
-		})
+		
 	}
 }
+
+
+
