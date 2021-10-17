@@ -3,13 +3,16 @@ import personaje.*
 import armas.*
 import direcciones.*
 
-class Bicho {
-	var property position = game.at(5, 7)
- 	var vida = 6
+class Enemigo {
+	var property position
+ 	var vida 
  	var orientacion = derecha
-	var nombre = "bichoAzul"
-	var damage = 1
-	method image() = "bichoAzul" + orientacion.sufijo() + ".png"
+	var nombre  
+	var damage 
+	var imagen 
+	method image() = imagen + orientacion.sufijo() + ".png"
+	
+	method dibujarse(){game.addVisual(self)}
 	
 	method recibirDanio(danio) {
 		if (vida - danio <= 0) {
@@ -32,10 +35,8 @@ class Bicho {
 	}
 	
 	method moverConstantemente(){
-		// evento que les dice a los bichos que se muevan
-		game.onTick(1200,nombre, {=>self.mover(direccionAleatoria.generar())})
-		// evento que ñle dice a los bichos que ataquen si pueden
-		game.onTick(200,"atacar",{=>self.atacarSiPuede(personaje)})
+		game.onTick(1200,nombre, {=>self.atacarOMovilizar(direccionAleatoria.generar())})
+		
 	}
 	
 	method puedeMover(direccion) {
@@ -43,28 +44,21 @@ class Bicho {
 	}
 	
 	method puedeAtacar(){
-		return self.presa(arriba) or self.presa(abajo) or self.presa(izquierda) or self.presa(derecha) 
+		return self.personajeCerca(arriba) or self.personajeCerca(abajo) or self.personajeCerca(izquierda) or self.personajeCerca(derecha) 
 	}
 	// este metodo mira en la celda siguiente esta posicionado el personaje
-	method presa(_direccion){
+	method personajeCerca(_direccion){
+		orientacion= _direccion
 		return personaje.position() == _direccion.siguiente(position)
 	} 
 
-	// Aqui deberia parar 1 sola vez el evnto y comenzar a atacar 
-	method atacarSiPuede(enemigo){
-			
-		if(self.puedeAtacar() ){
-			game.removeTickEvent(nombre)
-			// solo hay que agragar el metodo al personaje
-			enemigo.recibirDanio(damage)
-		}
+	method atacarOMovilizar(direccion){
+		if(self.puedeAtacar()){
+			self.atacar()
+		}else{self.mover(direccion)}
 	}
-			
 
-		
-		
-	
-	
+	method atacar(){ personaje.recibirDanio(damage)}
 	
 	//metodos de relleno para polimorfismo
 	method serAgarrado(){}
@@ -75,24 +69,20 @@ class Bicho {
 
 object creadorDeEnemigos{
 	
-	const bicho1= new Bicho(position = game.at(5,8), nombre= "bichoAzul")
-	const bicho2= new Bicho(position = game.at(9,9), nombre= "bichoAzul1" )
-	var bichos= [bicho1,bicho2]
-	var position 
-	var property image 
+	const bicho1= new Enemigo(position = game.at(12,8),vida=3,nombre="bichoAzul",damage= 2,imagen="bichoAzul" )
+	const bicho2= new Enemigo(position = game.at(9,3),vida=3,nombre="bichoAzul1",damage= 2,imagen="bichoAzul"  )
+	const demon= new Enemigo(position = game.at(5,8),vida=6,nombre="demon",damage= 4,imagen="demon" )
+	const demon1= new Enemigo(position = game.at(1,5),vida=6,nombre="demon1",damage= 4,imagen="demon")
 	
+	var enemigos= [bicho1,bicho2, demon, demon1]
+
 	
-	method dibujarBichos(){
-		game.addVisual(bicho1)
-		game.addVisual(bicho2)
-	}
-	
-	method crear(_position,_nombre){
-		return (new Bicho(position =_position,nombre =_nombre))
+	method dibujarEnemigos(){
+		enemigos.forEach({enemigo => enemigo.dibujarse()})
 	}
 	
 	method moverATodos(){
-		bichos.forEach({bicho => bicho.moverConstantemente()})
+		enemigos.forEach({enemigo => enemigo.moverConstantemente()})
 		 
 	}
 	

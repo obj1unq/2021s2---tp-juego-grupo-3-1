@@ -12,7 +12,7 @@ object personaje {
 	var escudo
 		
 	method image() {
-		return "pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png"
+		return if(self.sinVida())"personajeMuerto.png"else ("pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png")
 	}
 		
 	method mover(direccion) {
@@ -58,6 +58,18 @@ object personaje {
 	method soltarArma() {
 		game.addVisualIn(arma, orientacion.siguiente(position))
 		arma = manos
+	}
+	method sinVida(){return vida <= 0}
+	
+	method recibirDanio(danio) {
+		if (self.sinVida()) {
+			self.morir()
+		} else {vida -= danio}
+	}
+	
+	method morir() {
+		
+		game.removeVisual(self)
 	}
 	
 }
