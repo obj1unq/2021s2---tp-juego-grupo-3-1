@@ -10,7 +10,7 @@ object nivel1 {
 	method iniciar() {
 		game.addVisual(personaje)
 		//shace el addvisual ded todos los bichos que contienen el creador
-		creadorDeEnemigos.dibujarBichos()
+		creadorDeEnemigos.dibujarEnemigos()
 		// mueve todos lo bichos
 		creadorDeEnemigos.moverATodos()
 		game.addVisual(rama)
