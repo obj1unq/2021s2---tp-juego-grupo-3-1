@@ -56,7 +56,7 @@ object nivel1 inherits Nivel {
 	}
 
 	override method agregarEnemigos(){
-		creadorDeEnemigos.dibujarBichos()
+		creadorDeEnemigos.dibujarEnemigos()
 		creadorDeEnemigos.moverATodos()
 	}
 
