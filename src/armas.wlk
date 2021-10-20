@@ -16,6 +16,7 @@ object rama{
 	
 	method activarAtaque() {
 		ataqueCercano.atacar()
+		
 	}
 	
 	method recibirDanio(danio){}

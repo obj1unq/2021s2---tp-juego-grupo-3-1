@@ -1,6 +1,7 @@
 import wollok.game.*
 import direcciones.*
 import armas.*
+import sonidos.*
 
 object personaje {
 	
@@ -34,6 +35,7 @@ object personaje {
 	
 	method atacar() {
 		arma.activarAtaque()
+		
 	}
 	
 	method agarrarItem() {
@@ -64,7 +66,10 @@ object personaje {
 	method recibirDanio(danio) {
 		if (self.sinVida()) {
 			self.morir()
-		} else {vida -= danio}
+		} else {
+			vida -= danio
+			sonido.danioAlPersonaje().play()
+		}
 	}
 	
 	method morir() {

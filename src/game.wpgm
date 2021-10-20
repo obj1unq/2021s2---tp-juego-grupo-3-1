@@ -5,6 +5,8 @@ import configuraciones.*
 import enemigos.*
 import niveles.*
 import musica.*
+import sonidos.*
+
 
 program game {
 	game.width(15)
