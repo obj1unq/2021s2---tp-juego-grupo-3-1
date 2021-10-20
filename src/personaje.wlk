@@ -1,7 +1,6 @@
 import wollok.game.*
 import direcciones.*
 import armas.*
-import efectos.*
 
 object personaje {
 	
@@ -63,17 +62,19 @@ object personaje {
 	}
 	method sinVida(){return vida <= 0}
 	
-	method recibirDanio(danio) {
+	method recibirDanioDeEnemigo(danio,enemigo) {
 		if (self.sinVida()) {
 			self.morir()
-		} else {
-			vida -= danio
-		}
+			game.removeTickEvent(enemigo)
+		} else {vida -= danio}
 	}
 	
+	method irAUnSegundoPlano(){ position= game.at(-20,-20) }
+	
 	method morir() {
-		
 		game.removeVisual(self)
+		self.irAUnSegundoPlano()
 	}
+	
 	
 }

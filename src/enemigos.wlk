@@ -58,7 +58,7 @@ class Enemigo {
 		}else{self.mover(direccion)}
 	}
 
-	method atacar(){ personaje.recibirDanio(damage)}
+method atacar(){ personaje.recibirDanioDeEnemigo(damage, nombre)}
 	
 	//metodos de relleno para polimorfismo
 	method serAgarrado(){}
