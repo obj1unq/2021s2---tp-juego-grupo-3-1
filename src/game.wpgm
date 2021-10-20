@@ -4,6 +4,7 @@ import direcciones.*
 import configuraciones.*
 import enemigos.*
 import niveles.*
+import musica.*
 
 program game {
 	game.width(15)

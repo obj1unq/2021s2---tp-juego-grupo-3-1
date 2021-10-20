@@ -5,6 +5,7 @@ import direcciones.*
 import armas.*
 import decorado.*
 import configuraciones.*
+import musica.*
 
 class Nivel {
 	method iniciar() {
@@ -15,6 +16,7 @@ class Nivel {
 		self.agregarEnemigos()
 		self.agregarDecoracion()
 		self.agregarPuerta()
+		game.schedule(2000, {=>musica.tema1().play()})		
 	}
 
 	method siguienteNivel() {}
