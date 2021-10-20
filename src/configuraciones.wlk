@@ -2,6 +2,8 @@ import wollok.game.*
 import direcciones.*
 import personaje.*
 import armas.*
+import niveles.*
+import inicio.*
 
 object config {
 	

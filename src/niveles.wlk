@@ -6,6 +6,7 @@ import armas.*
 import decorado.*
 import configuraciones.*
 import musica.*
+import inicio.*
 
 class Nivel {
 	method iniciar() {
@@ -16,7 +17,6 @@ class Nivel {
 		self.agregarEnemigos()
 		self.agregarDecoracion()
 		self.agregarPuerta()
-		game.schedule(2000, {=>musica.tema1().play()})		
 	}
 
 	method siguienteNivel() {}
@@ -46,9 +46,21 @@ class Nivel {
 	method posicionAleatoria(){
 		return game.at(1.randomUpTo(10), 1.randomUpTo(10))
 	}
+	
 }
 
 object nivel1 inherits Nivel {
+	var property comenzoElJuego = false
+	
+	method mostrarInicio() {
+		pantallaDeInicio.mostrar()
+		game.schedule(1000, {=>musica.loopear(musica.tema1())})
+		keyboard.enter().onPressDo({
+			if (!self.comenzoElJuego()) {
+				musica.tema1().stop()
+				self.iniciar()}})				
+	}
+		
 	override method agregarItems(){
 		game.addVisual(rama)
 	}

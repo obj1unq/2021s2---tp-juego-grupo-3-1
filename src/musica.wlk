@@ -1,11 +1,10 @@
 import wollok.game.*
 
 object musica {
+	const property tema1 = game.sound("tema1.mp3")	
 	
-	method tema1() {
-		const tema1 = game.sound("tema1.mp3")
-		tema1.shouldLoop(true)
-		return tema1
+	method loopear(tema) {
+		tema.shouldLoop(true)
+		tema.play()
 	}
-	
 }

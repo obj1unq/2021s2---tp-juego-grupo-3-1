@@ -5,12 +5,13 @@ import configuraciones.*
 import enemigos.*
 import niveles.*
 import musica.*
+import inicio.*
 
 program game {
 	game.width(15)
 	game.height(12)
 	game.cellSize(50)
 	game.boardGround("background.jpg")
-	nivel1.iniciar()
+	nivel1.mostrarInicio()
 	game.start()
 }
