@@ -64,6 +64,8 @@ object nivel1 inherits Nivel {
 		
 	override method agregarItems(){
 		game.addVisual(rama)
+		game.addVisual(arco)
+		
 	}
 
 	override method agregarDecoracion(){
