@@ -1,7 +1,7 @@
 import wollok.game.*
 import direcciones.*
 import armas.*
-import sonidos.*
+import efectos.*
 
 object personaje {
 	
@@ -68,7 +68,6 @@ object personaje {
 			self.morir()
 		} else {
 			vida -= danio
-			sonido.danioAlPersonaje().play()
 		}
 	}
 	

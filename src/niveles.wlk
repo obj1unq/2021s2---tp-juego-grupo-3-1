@@ -54,10 +54,11 @@ object nivel1 inherits Nivel {
 	
 	method mostrarInicio() {
 		pantallaDeInicio.mostrar()
-		game.schedule(1000, {=>musica.loopear(musica.tema1())})
+		game.schedule(1000, {=>musica.loopear(musica.pantallaInicio())})
 		keyboard.enter().onPressDo({
 			if (!self.comenzoElJuego()) {
-				musica.tema1().stop()
+				musica.pantallaInicio().stop()
+				musica.loopear(musica.nivel1())
 				self.iniciar()}})				
 	}
 		

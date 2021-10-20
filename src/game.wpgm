@@ -5,12 +5,8 @@ import configuraciones.*
 import enemigos.*
 import niveles.*
 import musica.*
-<<<<<<< HEAD
 import inicio.*
-=======
-import sonidos.*
 
->>>>>>> branch 'master' of git@github.com:obj1unq/2021s2---tp-juego-grupo-3-1.git
 
 program game {
 	game.width(15)
