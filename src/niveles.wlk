@@ -10,7 +10,6 @@ class Nivel {
 	method iniciar() {
 		game.clear()
 		config.teclado()
-		game.boardGround("background.jpg")
 		game.addVisual(personaje)
 		self.agregarItems()
 		self.agregarEnemigos()
@@ -20,9 +19,17 @@ class Nivel {
 
 	method siguienteNivel() {}
 	method agregarDecoracion() {}
-	method agregarEnemigos() {}
+	method agregarEnemigos() {
+		creadorDeEnemigos.dibujarEnemigos()
+		creadorDeEnemigos.moverATodos()
+	}
 	method agregarItems() {}
-	
+
+	method agregarPuerta(){
+		puerta.nivelActual(self)
+		game.addVisual(puerta)
+	}
+
 	method obtenerDecoracion(){
 		return new Decorado(
 			image = self.obtenerNombreAleatorio(),
@@ -30,13 +37,8 @@ class Nivel {
 		)
 	}
 
-	method agregarPuerta(){
-		puerta.nivelActual(self)
-		game.addVisual(puerta)
-	}
-
 	method obtenerNombreAleatorio(){
-		return "tumba" + 1.randomUpTo(3).roundUp().toString() + ".png"
+		return "cripta" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
 
 	method posicionAleatoria(){
@@ -55,15 +57,64 @@ object nivel1 inherits Nivel {
 		game.addVisual(self.obtenerDecoracion())
 	}
 
-	override method agregarEnemigos(){
-		creadorDeEnemigos.dibujarEnemigos()
-		creadorDeEnemigos.moverATodos()
-	}
-
 	override method siguienteNivel() {
 		nivel2.iniciar()
 	}
 }
 
 object nivel2 inherits Nivel {
+	override method agregarDecoracion(){
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+	}
+
+	method obtenerNombreAleatorio(){
+		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
+	}
+
+	override method siguienteNivel() {
+		nivel3.iniciar()
+	}
+}
+
+object nivel3 inherits Nivel {
+
+	override method agregarDecoracion(){
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+	}
+
+	method obtenerNombreAleatorio(){
+		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
+	}
+
+	override method siguienteNivel() {
+		nivel4.iniciar()
+	}
+}
+
+object nivel4 inherits Nivel {
+	override method agregarDecoracion(){
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+		game.addVisual(self.obtenerDecoracion())
+	}
+
+	override method agregarEnemigos(){
+		// Agregar boss
+	}
+
+	method agregarPuerta(){
+		// sin puerta
+	}
 }
