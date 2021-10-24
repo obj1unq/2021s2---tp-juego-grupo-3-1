@@ -15,4 +15,4 @@ program game {
 	game.boardGround("background.jpg")
 	nivel1.mostrarInicio()
 	game.start()
-}
+}		
