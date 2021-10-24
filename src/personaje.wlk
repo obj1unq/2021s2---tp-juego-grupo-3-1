@@ -4,18 +4,19 @@ import armas.*
 
 object personaje {
 	
-	var property position = game.at(3, 6)
+	var property position = game.at(3,6)
 	var property orientacion = derecha
 	var vida = 5
 	var ropa = "desnudo"
 	var property arma = manos
 	var escudo
-		
+	var conVida = true	
 	method image() {
-		return if(self.sinVida())"personajeMuerto.png"else ("pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png")
+		return if(not conVida)"personajeMuerto.png"else ("pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png")
 	}
 		
-	method mover(direccion) {
+	method mover(direccion) { 
+		self .validarEnJuego ()
 		if (!direccion.esElBorde(position) && direccion.estaVacio(direccion.siguiente(position))) {
 			position = direccion.siguiente(position)
 		}
@@ -60,18 +61,26 @@ object personaje {
 		game.addVisualIn(arma, orientacion.siguiente(position))
 		arma = manos
 	}
-	method sinVida(){return vida <= 0}
 	
-	method recibirDanioDeEnemigo(danio,enemigo) {
+	method sinVida(){return vida <=0 }
+	
+	
+	method validarEnJuego () { 
+		if (not conVida) { 
+			self .error ("") 
+		} 
+	}
+	method recibirDanioDeEnemigo(danio) {
 		if (self.sinVida()) {
 			self.morir()
-			game.removeTickEvent(enemigo)
+			//game.removeTickEvent(enemigo)
 		} else {vida -= danio}
 	}
 	
 	method irAUnSegundoPlano(){ position= game.at(-20,-20) }
 	
 	method morir() {
+		 	conVida = false
 		game.removeVisual(self)
 		self.irAUnSegundoPlano()
 	}
