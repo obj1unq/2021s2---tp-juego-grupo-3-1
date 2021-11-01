@@ -6,7 +6,7 @@ object personaje {
 	
 	var property position = game.at(3,6)
 	var property orientacion = derecha
-	var vida = 5
+	var vida = 10
 	var ropa = "desnudo"
 	var property arma = manos
 	var escudo
@@ -62,7 +62,7 @@ object personaje {
 		arma = manos
 	}
 	
-	method sinVida(){return vida <=0 }
+	method sinVida(){return vida <=1 }
 	
 	
 	method validarEnJuego () { 

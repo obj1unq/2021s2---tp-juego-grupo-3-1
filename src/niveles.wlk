@@ -22,7 +22,7 @@ class Nivel {
 	method siguienteNivel() {}
 	method agregarDecoracion() {}
 	method agregarEnemigos() {
-		creadorDeEnemigos.dibujarEnemigos(5)
+		creadorDeEnemigos.dibujarEnemigos(3)
 		creadorDeEnemigos.moverATodos()
 	}
 	method agregarItems() {}
