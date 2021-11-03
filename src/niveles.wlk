@@ -27,7 +27,7 @@ class Nivel {
 	}
 
 	method agregarEnemigos() {
-		creadorDeEnemigos.dibujarEnemigos(self.obtenerDecoracion())
+		creadorDeEnemigos.dibujarEnemigos(self.cantidadDeEnemigos())
 		creadorDeEnemigos.moverATodos()
 	}
 	method agregarItems() {}
