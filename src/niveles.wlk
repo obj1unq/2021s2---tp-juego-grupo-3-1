@@ -90,7 +90,7 @@ object nivel2 inherits Nivel {
 		super()
 	}
 
-	method obtenerNombreAleatorio(){
+	override method obtenerNombreAleatorio(){
 		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
 	}
 
@@ -109,7 +109,7 @@ object nivel3 inherits Nivel {
 		super()
 	}
 
-	method obtenerNombreAleatorio(){
+	override method obtenerNombreAleatorio(){
 		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
 
@@ -128,7 +128,7 @@ object nivel4 inherits Nivel {
 		// Agregar boss
 	}
 
-	method agregarPuerta(){
+	override method agregarPuerta(){
 		// sin puerta
 	}
 }

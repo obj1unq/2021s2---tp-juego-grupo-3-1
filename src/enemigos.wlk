@@ -178,6 +178,7 @@ object creadorDeEnemigos{
 	}
 	
 	method dibujarEnemigos(cantidad){
+		enemigos.clear()
 		cantidad.times({ x => enemigos.add(self.generarNuevoEnemigo())})
 		enemigos.forEach({enemigo => enemigo.dibujarse()})
 	}
