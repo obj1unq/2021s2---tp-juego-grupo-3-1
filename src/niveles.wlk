@@ -12,6 +12,7 @@ class Nivel {
 	method iniciar() {
 		game.clear()
 		config.teclado()
+		self.agregarFondo()
 		game.addVisual(personaje)
 		self.agregarItems()
 		self.agregarEnemigos()
@@ -30,6 +31,10 @@ class Nivel {
 	method agregarPuerta(){
 		puerta.nivelActual(self)
 		game.addVisual(puerta)
+	}
+
+	method agregarFondo(){
+		game.addVisual(fondo)
 	}
 
 	method obtenerDecoracion(){
@@ -90,6 +95,11 @@ object nivel2 inherits Nivel {
 		game.addVisual(self.obtenerDecoracion())
 	}
 
+	override method agregarFondo(){
+		fondo.image("background3.jpg")
+		super()
+	}
+
 	method obtenerNombreAleatorio(){
 		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
 	}
@@ -109,6 +119,11 @@ object nivel3 inherits Nivel {
 		game.addVisual(self.obtenerDecoracion())
 	}
 
+	override method agregarFondo(){
+		fondo.image("background2.jpg")
+		super()
+	}
+
 	method obtenerNombreAleatorio(){
 		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
@@ -125,6 +140,11 @@ object nivel4 inherits Nivel {
 		game.addVisual(self.obtenerDecoracion())
 		game.addVisual(self.obtenerDecoracion())
 		game.addVisual(self.obtenerDecoracion())
+	}
+
+	override method agregarFondo(){
+		fondo.image("background.jpg")
+		super()
 	}
 
 	override method agregarEnemigos(){

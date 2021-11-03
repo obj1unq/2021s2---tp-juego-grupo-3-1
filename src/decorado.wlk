@@ -20,3 +20,11 @@ object puerta{
 	}
 	method recibirDanio(danio){}
 }
+
+object fondo{
+	var property image = "background.jpg"
+	method position(){ return game.at(0, 0)}
+
+	method serAgarrado(){}
+	method recibirDanio(danio){}
+}
