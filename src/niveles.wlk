@@ -16,14 +16,18 @@ class Nivel {
 		game.addVisual(personaje)
 		self.agregarItems()
 		self.agregarEnemigos()
-		self.agregarDecoracion()
+		self.agregarDecoracion(5)
 		self.agregarPuerta()
 	}
 
 	method siguienteNivel() {}
-	method agregarDecoracion() {}
+
+	method agregarDecoracion(cantidad){
+		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
+	}
+
 	method agregarEnemigos() {
-		creadorDeEnemigos.dibujarEnemigos(3)
+		creadorDeEnemigos.dibujarEnemigos(self.obtenerDecoracion())
 		creadorDeEnemigos.moverATodos()
 	}
 	method agregarItems() {}
@@ -52,6 +56,9 @@ class Nivel {
 		return game.at(1.randomUpTo(10), 1.randomUpTo(10))
 	}
 	
+	method cantidadDeEnemigos(){
+		return 3
+	}
 }
 
 object nivel1 inherits Nivel {
@@ -70,13 +77,6 @@ object nivel1 inherits Nivel {
 	override method agregarItems(){
 		game.addVisual(rama)
 		game.addVisual(arco)
-		
-	}
-
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
 	}
 
 	override method siguienteNivel() {
@@ -85,16 +85,6 @@ object nivel1 inherits Nivel {
 }
 
 object nivel2 inherits Nivel {
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-	}
-
 	override method agregarFondo(){
 		fondo.image("background3.jpg")
 		super()
@@ -107,18 +97,13 @@ object nivel2 inherits Nivel {
 	override method siguienteNivel() {
 		nivel3.iniciar()
 	}
+
+	override method cantidadDeEnemigos(){
+		return 1
+	}
 }
 
 object nivel3 inherits Nivel {
-
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-	}
-
 	override method agregarFondo(){
 		fondo.image("background2.jpg")
 		super()
@@ -134,14 +119,6 @@ object nivel3 inherits Nivel {
 }
 
 object nivel4 inherits Nivel {
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-	}
-
 	override method agregarFondo(){
 		fondo.image("background.jpg")
 		super()
