@@ -1,0 +1,43 @@
+import wollok.game.*
+import niveles.*
+import enemigos.*
+import decorado.*
+import personaje.*
+import armas.*
+
+describe "niveles" {
+	
+	method initialize(){
+	    nivel1.iniciar()
+	
+	}
+	test "pasar de nivel" {	
+		// deberia lanzar una exception si quedan enemigos por eliminar
+		assert.throwsException({nivel1.siguienteNivel()})
+		// eliminar los enemigos y pasar de nivel
+		creadorDeEnemigos.enemigos().forEach({ enemigo => enemigo.morir()})
+		nivel1.siguienteNivel()
+		// deberia estar en el nivel 2
+		assert.equals(nivel2, puerta.nivelActual())
+	}	
+	
+	test "nivel1" {
+		assert.that(game.hasVisual(fondo))
+		assert.that(game.hasVisual(puerta))
+		assert.that(game.hasVisual(personaje))
+		assert.that(game.hasVisual(rama))
+		assert.that(game.hasVisual(arco))
+		assert.equals("background.jpg", fondo.image())
+		assert.equals(3, creadorDeEnemigos.enemigos().size())
+		assert.equals(nivel1, puerta.nivelActual())
+	}
+	
+	test "nivel2" {
+		creadorDeEnemigos.enemigos().forEach({ enemigo => enemigo.morir()})
+		nivel1.siguienteNivel()
+		
+		assert.equals("background3.jpg", fondo.image())
+		assert.equals(1, creadorDeEnemigos.enemigos().size())
+		assert.equals(nivel2, puerta.nivelActual())
+	}
+}
