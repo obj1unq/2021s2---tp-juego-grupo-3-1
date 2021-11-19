@@ -85,5 +85,7 @@ object personaje {
 		self.irAUnSegundoPlano()
 	}
 	
-	
+	method vida(){
+		return vida
+	}
 }
