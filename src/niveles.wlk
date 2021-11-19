@@ -9,6 +9,8 @@ import musica.*
 import inicio.*
 
 class Nivel {
+	var enemigosDerrotados = 0
+	
 	method iniciar() {
 		game.clear()
 		config.teclado()
@@ -20,8 +22,15 @@ class Nivel {
 		self.agregarPuerta()
 	}
 
-	method siguienteNivel() {}
-
+	method siguienteNivel() {
+		self.validarEnemigos()
+	}
+	
+	method validarEnemigos(){
+		if(enemigosDerrotados < self.cantidadDeEnemigos()){
+			self.error("Falta derrotar enemigos")
+		}
+	}
 	method agregarDecoracion(cantidad){
 		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
 	}
@@ -59,6 +68,10 @@ class Nivel {
 	method cantidadDeEnemigos(){
 		return 3
 	}
+	
+	method derrotarEnemigo(){
+		enemigosDerrotados += 1
+	}
 }
 
 object nivel1 inherits Nivel {
@@ -80,6 +93,7 @@ object nivel1 inherits Nivel {
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel2.iniciar()
 	}
 }
@@ -95,6 +109,7 @@ object nivel2 inherits Nivel {
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel3.iniciar()
 	}
 
@@ -114,6 +129,7 @@ object nivel3 inherits Nivel {
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel4.iniciar()
 	}
 }

@@ -4,6 +4,7 @@ import armas.*
 import direcciones.*
 import randomizer.*
 import items.*
+import decorado.*
 
 class Enemigo{
 	var property position
@@ -28,6 +29,7 @@ class Enemigo{
 
 	
 	method morir() {
+		puerta.eliminarEnemigo()
 		game.removeTickEvent("Movimiento de " + self.identity())
 		game.removeVisual(self)
 		self.dropear()
@@ -157,7 +159,7 @@ object crearBicho{
 }
 
 object creadorDeEnemigos{
-	const enemigos= #{}
+	const property enemigos= #{}
 	const factoriesEnemigos= [crearDemon, crearBicho]
 	
 		//method dibujarEnemigos(){

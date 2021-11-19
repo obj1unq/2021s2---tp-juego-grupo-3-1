@@ -19,6 +19,9 @@ object puerta{
 		nivelActual.siguienteNivel()
 	}
 	method recibirDanio(danio){}
+	method eliminarEnemigo(){
+		nivelActual.derrotarEnemigo()
+	}
 }
 
 object fondo{
