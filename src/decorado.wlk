@@ -26,7 +26,8 @@ object puerta{
 	}
 	
 	method abrir() {
-		game.sound("nivelCompletado.mp3").play()
+		game.onTick(1,"sonido",{ game.sound("nivelCompletado.mp3").play() })
+		game.removeTickEvent("sonido")
 		imagen = "puertaAbierta.png"
 	}
 	

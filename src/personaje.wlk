@@ -58,7 +58,7 @@ object personaje {
 	}	
 	
 	method recibirDanio(_danio) {
-		game.sound("danioPj.mp3").play()
+		//game.sound("danioPj.mp3").play()
 		vida = 0.max(vida - _danio)
 		self.verificarVida()
 	}

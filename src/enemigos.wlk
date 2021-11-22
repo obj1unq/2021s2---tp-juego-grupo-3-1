@@ -18,7 +18,7 @@ class EnemigoMuerto {
 }
 
 class Enemigo{
- 	var vida 
+ 	var property vida 
  	var property orientacion = derecha
  	var property position = randomizer.emptyPosition()
 	const nombre  
@@ -53,8 +53,11 @@ class Enemigo{
     }
     
     method moverDondePueda() {
-    	const dir = direcciones.unaDireccionLibreDesde(position)
-		orientacion = dir
+    	self.mover(direcciones.unaDireccionLibreDesde(position))
+    }
+    
+    method mover(dir){
+    	orientacion = dir
 		position = dir.siguiente(position)
     }
     
@@ -83,7 +86,7 @@ class Enemigo{
     }
 
 	method recibirDanio(_danio) {
-		game.sound("danioEnemigo.mp3").play()
+		//game.sound("danioEnemigo.mp3").play()
 		vida = 0.max(vida - _danio)
 		self.verificarVida()
 	}
@@ -95,7 +98,7 @@ class Enemigo{
 
 object fabricaDeEnemigos {
 	const enemigosDisponibles = [{self.crearBichoAzul()}, {self.crearDemon()}]
-	const enemigosCreados = []
+	const property enemigosCreados = []
 	
 	method crearDemon() {
 		return new Enemigo(vida = 6,

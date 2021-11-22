@@ -19,10 +19,10 @@ class Nivel {
 		self.agregarFondo()
 		game.addVisual(personaje)
 		game.addVisual(vidaPj)
+		self.agregarPuerta()
 		self.agregarItems()
 		self.agregarEnemigos(5)
 		self.agregarDecoracion(5)
-		self.agregarPuerta()
 	}
 	
 	method agregarEnemigos(cantidad) {
@@ -95,38 +95,38 @@ object nivel2 inherits Nivel {
 	override method obtenerNombreAleatorio(){
 		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
 	}
-//
-//	override method siguienteNivel() {
-//		super()
-//		nivel3.iniciar()
-//	}
+
+	override method siguienteNivel() {
+		super()
+		nivel3.iniciar()
+	}
 
 }
-//
-//object nivel3 inherits Nivel {
-//	override method agregarFondo(){
-//		fondo.image("background2.jpg")
-//		super()
-//	}
-//
-//	override method obtenerNombreAleatorio(){
-//		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
-//	}
-//
-//	override method siguienteNivel() {
-//		super()
-//		nivel4.iniciar()
-//	}
-//}
-//
-//object nivel4 inherits Nivel {
-//	override method agregarFondo(){
-//		fondo.image("background.jpg")
-//		super()
-//	}
-//
-//
-//	override method agregarPuerta(){
-//		// sin puerta
-//	}
-//}
+
+object nivel3 inherits Nivel {
+	override method agregarFondo(){
+		fondo.image("background2.jpg")
+		super()
+	}
+
+	override method obtenerNombreAleatorio(){
+		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
+	}
+
+	override method siguienteNivel() {
+		super()
+		nivel4.iniciar()
+	}
+}
+
+object nivel4 inherits Nivel {
+	override method agregarFondo(){
+		fondo.image("background1.jpg")
+		super()
+	}
+
+
+	override method agregarPuerta(){
+		// sin puerta
+	}
+}
