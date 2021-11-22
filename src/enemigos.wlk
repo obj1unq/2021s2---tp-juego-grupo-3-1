@@ -87,12 +87,13 @@ class Enemigo{
 
 	method restarVida(_danio){
 		vida = 0.max(vida - _danio)
+		self.verificarVida()
 	}
 
 	method recibirDanio(_danio) {
 		game.sound("danioEnemigo.mp3").play()
 		self.restarVida(_danio)
-		self.verificarVida()
+		
 	}
 	
 	//polimorfismo

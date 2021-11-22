@@ -55,6 +55,7 @@ object personaje {
 	method morir() {
 		game.addVisualIn(personajeMuerto, position)
 		game.removeVisual(self)		
+		self.verificarVida()
 	}
 
 	method restarVida(_danio){
@@ -64,7 +65,6 @@ object personaje {
 	method recibirDanio(_danio) {
 		game.sound("danioPj.mp3").play()
 		self.restarVida(_danio)
-		self.verificarVida()
 	}
 	
 }

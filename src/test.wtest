@@ -50,6 +50,7 @@ describe "personaje" {
 		game.width(15)
 		game.height(12)
 		game.cellSize(50)
+		game.addVisualIn(personaje , personaje.position())
 	}
 	
 	test "movimiento" {
@@ -86,6 +87,7 @@ describe "enemigos" {
 		game.width(15)
 		game.height(12)
 		game.cellSize(50)
+		game.addVisualIn(enemigo, enemigo.position())
 	}
 	
 	test "movimiento" {
@@ -102,6 +104,8 @@ describe "enemigos" {
 	}
 	
 	test "recibir danio" {		
+		enemigo.activarExploracion()
+		
 		assert.equals(3, enemigo.vida())
 		enemigo.restarVida(1)
 		assert.equals(2, enemigo.vida())
