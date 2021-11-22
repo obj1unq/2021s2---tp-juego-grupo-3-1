@@ -76,8 +76,8 @@ object nivel1 inherits Nivel {
 	}
 		
 	override method agregarItems(){
-		game.addVisualIn(rama, randomizer.emptyPosition())
-		game.addVisualIn(arco, randomizer.emptyPosition())
+		game.addVisual(rama)
+		game.addVisual(arco)
 	}
 
 	override method siguienteNivel() {

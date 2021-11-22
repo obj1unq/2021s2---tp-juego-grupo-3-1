@@ -2,6 +2,7 @@ import wollok.game.*
 import personaje.*
 import direcciones.*
 import misc.*
+import randomizer.*
 
 object ataqueEnemigo {
 	method image() = "ataqueEnemigo.png"
@@ -78,7 +79,7 @@ class Manos {
 const manos = new Manos()
 
 object rama{
-	var property position
+	var property position = randomizer.emptyPosition()
 	
 	method image() = "rama.png"
 	
@@ -109,7 +110,7 @@ object rama{
 
 
 object arco{
-	var property position
+	var property position = randomizer.emptyPosition()
 	var property carga = 1
 
 	method image() = "arco.png"
