@@ -12,21 +12,16 @@ object avisoPuerta {
 	method image() = "avisoPuerta.png"
 
 	method mostrarse() {
-		if (!self.estaEnElJuego()) {
+		if (!monitor.estaEnElJuego(self)) {
 			game.addVisualIn(self, game.at(8,10))
 			game.schedule(2000, {=>
 			game.removeVisual(self)})
 		}			
 	}
-
-	method estaEnElJuego() {
-		return game.allVisuals().contains(self)
-	}
 }
 
 object monitor {
 	
-
 	method hayEnemigosRestantes() {
 		return fabricaDeEnemigos.enemigosRestantes() > 0
 	}
