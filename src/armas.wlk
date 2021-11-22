@@ -1,32 +1,63 @@
 import wollok.game.*
 import personaje.*
 import direcciones.*
+import misc.*
 
-object rama{
-	var property position = game.at(5,4)
-	method image() = "rama.png"
+object ataqueEnemigo {
+	method image() = "ataqueEnemigo.png"
 	
-	method sufijo() {
-		return "-rama"
+	method atacarPersonaje(_danio) {
+		game.addVisualIn(self, personaje.position())
+		game.schedule(150, {=> game.removeVisual(self)})
+		personaje.recibirDanio(_danio)
+	}
+	
+	//polimorfismo
+	method serAgarrado() {}
+	method recibirDanio(danio) {}
+}
+
+object ataqueLejano {
+	
+	method image() = "enemigoDaniado.png"
+	
+	method atacar(enemigo, municion) {
+		game.addVisualIn(self, enemigo.position())
+		enemigo.recibirDanio(municion.danio())
+		game.schedule(70, {=> game.removeVisual(self)})
+	}
+	
+	//polimorfismo
+	method serAgarrado() {}
+	method recibirDanio(danio) {}
+}
+
+object ataqueCercano {
+	
+	method image() = "ataque" + personaje.arma().sufijo() + personaje.orientacion().sufijo() + ".png"
+	
+	
+	method atacar() {
+		if (!monitor.estaEnElJuego(self)) { //para controlar superposiciones de mensajes
+			game.addVisualIn(self, personaje.posicionEnfrente())
+			game.onCollideDo(self, {enemigo => enemigo.recibirDanio(self.danio())})
+			game.schedule(70, {=> game.removeVisual(self)})
+		}
 	}
 	
 	method danio() {
-		return 2
+		return personaje.fuerzaDeAtaque()
 	}
 	
-	method activarAtaque() {
-		ataqueCercano.atacar()
-		
-	}
 	
-	method recibirDanio(danio){}
+	//polimorfismo
+	method serAgarrado() {}
+	method recibirDanio(danio) {}
 	
-	method serAgarrado() {
-		personaje.equiparArma(self)
-	}
 }
 
-object manos {
+class Manos {
+	const property ataque = ataqueCercano
 	
 	method sufijo() {
 		return ""
@@ -39,32 +70,46 @@ object manos {
 	method activarAtaque() {
 		ataqueCercano.atacar()
 	}
-	method serAgarrado() {}
 	
+	//polimorfismo
+	method arrojarse() {}
 }
 
-object ataqueCercano {
+const manos = new Manos()
+
+object rama{
+	var property position
 	
-	method image() = "ataque" + personaje.arma().sufijo() + personaje.orientacion().sufijo() + ".png"
+	method image() = "rama.png"
 	
-	
-	method atacar() {
-		game.addVisualIn(self, personaje.posicionEnfrente())
-		game.onCollideDo(self, {enemigo => enemigo.recibirDanio(self.danio())})
-		game.schedule(50, {=> game.removeVisual(self)})
+	method sufijo() {
+		return "-rama"
 	}
 	
 	method danio() {
-		return personaje.fuerzaDeAtaque()
+		return 2
 	}
 	
-	//metodos de relleno para polimorfismo
-	method serAgarrado(){}
+	method activarAtaque() {
+		ataqueCercano.atacar()
+	}
 	
+	method recibirDanio(danio){}
+	
+	method serAgarrado() {
+		personaje.equiparArma(self)
+	}
+	
+	method arrojarse() {
+		game.addVisualIn(self, direcciones.unaDireccionLibreDesde(personaje.position()).
+							   siguiente(personaje.position())
+		)
+	}
 }
 
+
 object arco{
-	var property position = game.at(10, 10)
+	var property position
 	var property carga = 1
 
 	method image() = "arco.png"
@@ -80,7 +125,7 @@ object arco{
 	method activarAtaque() {
 		if(carga > 0){
 			carga -= 1
-			new Flecha().disparar()			
+			new Municion(nombre = "flecha").disparar()			
 		}
 		
 	}
@@ -94,31 +139,32 @@ object arco{
 	method recargar(){
 		carga += 1
 	}
+	
+	method arrojarse() {
+		game.addVisualIn(self, direcciones.unaDireccionLibreDesde(personaje.position()).siguiente(personaje.position()))
+	}
 }
 
-class Flecha{
-	var property position = personaje.posicionEnfrente()
-	var property orientacion = personaje.orientacion()
-	var distancia = 4
+class Municion{
 	
-	method image() = "flecha"+ orientacion.sufijo() +".png"
+	var property position = personaje.position()
+	const orientacion = personaje.orientacion()
+	var distanciaPorRecorrer = 6
+	const nombre
 	
+	method image() = nombre + orientacion.sufijo() +".png"
 	
 	method danio(){
 		return 1
 	}
 	
-	method sufijo() {
-
-	}
-	
 	method disparar(){
 		game.addVisual(self)
-		game.onTick(100, "flecha", {
-			game.onCollideDo(self, {enemigo => enemigo.recibirDanio(self.danio()) self.borrar()})
+		game.onTick(70, "Movimiento de " + self.identity(), {
+			game.onCollideDo(self, {enemigo => ataqueLejano.atacar(enemigo, self) self.borrar()})
 			self.mover(orientacion)
-			distancia -= 1
-			if(distancia < 0){
+			distanciaPorRecorrer -= 1
+			if(distanciaPorRecorrer == 0){
 				self.borrar()
 			}
 		})
@@ -126,18 +172,19 @@ class Flecha{
 	
 	method borrar(){
 		game.removeVisual(self)
-		game.removeTickEvent("flecha")
+		game.removeTickEvent("Movimiento de " + self.identity())
 		arco.recargar()
 	}
 	
-	method recibirDanio(danio){}
-		
-		method mover(direccion){
-		self.irA(direccion.siguiente(self.position()))
+	method mover(direccion){
+			position = direccion.siguiente(position)
 	}
 	
-	method irA(nuevaPosicion) {
-		position = nuevaPosicion
-	}
+	//polimorfismo
+	method recibirDanio(danio){}
 	
 }
+
+
+
+ 

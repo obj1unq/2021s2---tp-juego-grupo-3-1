@@ -1,4 +1,6 @@
 import wollok.game.*
+import personaje.*
+import enemigos.*
 
 object izquierda {
 	
@@ -17,11 +19,6 @@ object izquierda {
 	method opuesto() {
 		return derecha
 	}
-	
-	method estaVacio(posicion) {
-		return game.getObjectsIn(posicion).isEmpty()
-	}
-	
 }
 
 object derecha {
@@ -42,9 +39,6 @@ object derecha {
 		return izquierda
 	}
 	
-	method estaVacio(posicion) {
-		return game.getObjectsIn(posicion).isEmpty()
-	}	
 }
 
 object arriba {
@@ -65,9 +59,6 @@ object arriba {
 		return abajo
 	}
 	
-	method estaVacio(posicion) {
-		return game.getObjectsIn(posicion).isEmpty()
-	}
 }
 
 object abajo {
@@ -87,20 +78,33 @@ object abajo {
 	method opuesto() {
 		return arriba
 	}
+}
+
+object direcciones {
+	method lista() {
+		return [abajo, izquierda, arriba, derecha]
+	}
+	
+	method aleatoria() {
+		return self.lista().anyOne()
+	}
 
 	method estaVacio(posicion) {
 		return game.getObjectsIn(posicion).isEmpty()
 	}
-}
-
-object direccionAleatoria {
 	
-	method generar() {
-		var num = 0.randomUpTo(4).roundUp()
-		const direcciones = ["relleno", arriba, izquierda, abajo, derecha]
-		return direcciones.get(num)
+	method unaDireccionLibreDesde(posicion) {
+		const direccion = self.aleatoria()
+		if (self.estaVacio(direccion.siguiente(posicion)) && !direccion.esElBorde(posicion)) {
+			return direccion
+		} else {return self.unaDireccionLibreDesde(posicion)}
 	}
-}		
+	
+	method estaElPersonajeHacia(direccion, posicion) {
+		return game.getObjectsIn(direccion.siguiente(posicion)).contains(personaje)
+	}
+	 
+}
 
 	
 	

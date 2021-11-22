@@ -5,185 +5,131 @@ import direcciones.*
 import randomizer.*
 import items.*
 import decorado.*
+import misc.*
+
+class EnemigoMuerto {
+	const property position
+
+	method image() = "enemigoMuerto.png"
+	
+	//polimorfismo
+	method recibirDanio(danio) {}
+	method serAgarrado() {}
+}
 
 class Enemigo{
-	var property position
- 	var  property vida 
+ 	var vida 
  	var property orientacion = derecha
-	const property nombre  
+ 	var property position = randomizer.emptyPosition()
+	const nombre  
 	const property danio 
-	//var property modo = caminante
-	var property imagenDelEnemigo = nombre + orientacion.sufijo() + ".png" 
-	const drop 
-	method image(){ 
-		 return  imagenDelEnemigo 
+	
+	method image(){
+		 return nombre + orientacion.sufijo() + ".png" 
 	}
 	
-	method dibujarse(){game.addVisual(self)}
-	
-	method recibirDanio(_danio) {
-		if (vida - _danio <= 0) {
-			self.morir()
-		} else {vida -= _danio}
-	}
-
-	
-	method morir() {
-		puerta.eliminarEnemigo()
-		game.removeTickEvent("Movimiento de " + self.identity())
-		game.removeVisual(self)
-		self.dropear()
-			
-	}
-	method dropear(){
-		const posibilidadDeDejarObjeto = (0..9).anyOne()
-		if(posibilidadDeDejarObjeto > 7){
-			self.dejarCaerItem()
-		}
-	}
-	
-	method dejarCaerItem(){
-		if(drop){
-			game.addVisual(new Item(position =self.position()))
-		}
-	}
-	
-	method moverConstantemente(){
-		game.onTick(1200,"Movimiento de " + self.identity(), {=>self.atacarOMovilizar(direccionAleatoria.generar())})
-		
-	}
-	
-	
-	method personajeEstaCerca(){
-		// hacer esto con un any
-		return self.personajeCerca(arriba) or self.personajeCerca(abajo) or self.personajeCerca(izquierda) or self.personajeCerca(derecha) 
-	}
-	
-	method personajeCerca(_direccion){
-		orientacion= _direccion
-		return personaje.position() == _direccion.siguiente(position)
-	} 
-
-	method atacarOMovilizar(direccion){
-		if(self.personajeEstaCerca()){
-		   self.pasarAModoDeCombate()
-		}else{ self.pasarAModoCaminante(direccion)}
-	}
-	
-	method pasarAModoCaminante(direccion){
-		const modo= caminante
-		modo.accion(direccion,self)
-	}
-	
-	method pasarAModoDeCombate(){
-		const modo= combate
-		game.schedule(1000,{=> 
-			// mover esto a otro metodo
-			imagenDelEnemigo=nombre + orientacion.sufijo()+ modo.imagenDeAccion() + ".png"; 
-			// mover esto a otro metodo
-			if(self.personajeEstaCerca()){modo.atacar(danio)}
+	method estaJuntoAlPersonaje() {
+		return direcciones.lista().any({direccion => direcciones.estaElPersonajeHacia(direccion, position)})
+    }
+    
+    method direccionHaciaElPersonaje() {
+    	return direcciones.lista().find({direccion =>
+			game.getObjectsIn(direccion.siguiente(position)).contains(personaje)
 		})
-		imagenDelEnemigo = nombre + orientacion.sufijo() + ".png"
-		
+    }
+    
+    method mirarHaciaElPersonaje() {
+		orientacion = self.direccionHaciaElPersonaje()
 	}
 	
-
-}
-
-
-
-
-
-
-// ARAÑAS
-
-
-//Modos de accion de los enemigos	
-
-
-object combate{
-	
-	
-	method atacar(danio){  personaje.recibirDanioDeEnemigo(danio)}
-	
-	method activarAtaques(danio){
-		game.schedule(1000,{=> self.atacar(danio)})
-	}
-	
-	method imagenDeAccion(){
-		return "_ataque_Fuerte"
-	}
-	
-	method accion(direccion,enemigo){}
-
-}
-
-object caminante{
-	
-	method puedeMover(direccion,enemigo) {
-		return !direccion.esElBorde(enemigo.position()) && direccion.estaVacio(direccion.siguiente(enemigo.position()))
-	}
-	
-	
-	method accion(direccion,enemigo) {
-		if (self.puedeMover(direccion,enemigo)) {
-		// esta parte la tengo que pasar a una subtarea
-		// esto es responsabilidad del enemigo
-			enemigo.position(direccion.siguiente(enemigo.position())) 
-			enemigo.orientacion(direccion)
-			enemigo.imagenDelEnemigo (enemigo.nombre() + enemigo.orientacion().sufijo() + ".png") 
-		} else if (self.puedeMover(direccion.opuesto(),enemigo)) {
-			// esta tambien
-			// esto es responsabilidad del enemigo
-			enemigo.position (direccion.opuesto().siguiente(enemigo.position()))
-			enemigo.orientacion (direccion.opuesto())
-			enemigo.imagenDelEnemigo (enemigo.nombre() + enemigo.orientacion().sufijo() + ".png") 
+    method ataca() {
+    	return [false, true, true, true, true].anyOne()
+    }
+    
+    method atacar() {
+    	if (self.ataca()) {
+			ataqueEnemigo.atacarPersonaje(danio)
 		}
+    }
+    
+    method moverDondePueda() {
+    	const dir = direcciones.unaDireccionLibreDesde(position)
+		orientacion = dir
+		position = dir.siguiente(position)
+    }
+    
+    method atacarOMover() {
+    	if (self.estaJuntoAlPersonaje()) {
+    		self.mirarHaciaElPersonaje()
+    		self.atacar()
+    	} else {self.moverDondePueda()}
+    }
+    
+    method activarExploracion() {
+    	game.onTick(1250, "Exploracion de " + self.identity(),{=> 
+    				self.atacarOMover()})
+    }
+    
+    method morir() {
+    	game.removeTickEvent("Exploracion de " + self.identity())
+    	game.addVisual(new EnemigoMuerto(position = position))
+    	fabricaDeEnemigos.removerEnemigo(self)
+    	game.removeVisual(self)
+    	monitor.verificarNivel()    	
+    }
+    
+    method verificarVida() {
+    	if (vida < 1) {self.morir()}
+    }
+
+	method recibirDanio(_danio) {
+		game.sound("danioEnemigo.mp3").play()
+		vida = 0.max(vida - _danio)
+		self.verificarVida()
 	}
 	
-	method atacar(danio){}
-	method imagenDeAccion(){}
+	//polimorfismo
+	method serAgarrado() {}
 }
 
 
-object crearDemon{
-	method crearNuevoEnemigo(){
-		return new Enemigo(vida = 6,danio=2,drop = false, nombre= "demon", position = randomizer.emptyPosition() )
-	}
-	}
-object crearBicho{	
-	method crearNuevoEnemigo(){
-		return new Enemigo(vida = 3,danio=1,drop = true, nombre= "bichoAzul", position = randomizer.emptyPosition() )
-	}
+object fabricaDeEnemigos {
+	const enemigosDisponibles = [{self.crearBichoAzul()}, {self.crearDemon()}]
+	const enemigosCreados = []
 	
-}
-
-object creadorDeEnemigos{
-	const property enemigos= #{}
-	const factoriesEnemigos= [crearDemon, crearBicho]
-	
-		//method dibujarEnemigos(){
-//		enemigos.forEach({enemigo => enemigo.dibujarse()})
-//	}
-//	
-	
-	method moverATodos(){
-		enemigos.forEach({enemigo => enemigo.moverConstantemente()})
-		 
+	method crearDemon() {
+		return new Enemigo(vida = 6,
+				           danio=2,
+						   nombre= "demon")
 	}
 	
-
-	method  generarNuevoEnemigo() { 
-		const indiceAleatorio = ( 0  .. factoriesEnemigos.size () - 1 ) .anyOne () 
-		 const factory = factoriesEnemigos.get (indiceAleatorio) 
-		 return factory.crearNuevoEnemigo()
+	method crearBichoAzul() {
+		return new Enemigo(vida = 3,
+				           danio=1,
+					       nombre= "bichoAzul")
 	}
 	
-	method dibujarEnemigos(cantidad){
-		enemigos.clear()
-		cantidad.times({ x => enemigos.add(self.generarNuevoEnemigo())})
-		enemigos.forEach({enemigo => enemigo.dibujarse()})
+	method crearEnemigoAleatorio() {
+		enemigosCreados.add(enemigosDisponibles.anyOne().apply())
 	}
 	
+	method removerEnemigo(enemigo) {
+		enemigosCreados.remove(enemigo)
+	}
 	
+	method activarExploracionDeTodos() {
+		enemigosCreados.forEach({enemigo => enemigo.activarExploracion()})
+	}
+	
+	method dibujarTodos() {
+		enemigosCreados.forEach({enemigo => game.addVisual(enemigo)})
+	}
+	
+	method crearEnemigosAleatorios(cantidad) {
+		cantidad.times({x => self.crearEnemigoAleatorio()})
+	}
+	
+	method enemigosRestantes() {
+		return enemigosCreados.size()
+	}
 }

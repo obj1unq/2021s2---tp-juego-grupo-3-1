@@ -1,23 +1,25 @@
 import wollok.game.*
 import direcciones.*
 import armas.*
+import misc.*
 
 object personaje {
 	
 	var property position = game.at(3,6)
 	var property orientacion = derecha
-	var vida = 10
-	var ropa = "desnudo"
+	var property vida = 12
 	var property arma = manos
-	var escudo
-	var conVida = true	
-	method image() {
-		return if(not conVida)"personajeMuerto.png"else ("pj-" + ropa + arma.sufijo() + orientacion.sufijo() + ".png")
+
+	
+	method image()= "pj" + arma.sufijo() + orientacion.sufijo() + ".png"
+	
+	method puedeMover(direccion) {
+		return direcciones.estaVacio(direccion.siguiente(position)) &&
+			   !direccion.esElBorde(position)
 	}
-		
+	
 	method mover(direccion) { 
-		self .validarEnJuego ()
-		if (!direccion.esElBorde(position) && direccion.estaVacio(direccion.siguiente(position))) {
+		if (self.puedeMover(direccion)) {
 			position = direccion.siguiente(position)
 		}
 		orientacion = direccion
@@ -28,14 +30,12 @@ object personaje {
 	}
 	
 	
-	
 	method fuerzaDeAtaque() {
 		return arma.danio()
 	}
 	
 	method atacar() {
 		arma.activarAtaque()
-		
 	}
 	
 	method agarrarItem() {
@@ -43,49 +43,28 @@ object personaje {
 	}
 	
 	method equiparArma(_arma) {
+		arma.arrojarse()
 		arma = _arma
 		game.removeVisual(_arma)
 	}
 	
-	method equiparEscudo(_escudo) {
-		escudo = _escudo
-		game.removeVisual(_escudo)
+	method verificarVida() {
+		if (vida === 0) {self.morir()}
 	}
-	
-	method cambiarRopa(_ropa) {
-		ropa = _ropa
-		game.removeVisual(_ropa)
-	}
-	
-	method soltarArma() {
-		game.addVisualIn(arma, orientacion.siguiente(position))
-		arma = manos
-	}
-	
-	method sinVida(){return vida <=1 }
-	
-	
-	method validarEnJuego () { 
-		if (not conVida) { 
-			self .error ("") 
-		} 
-	}
-	method recibirDanioDeEnemigo(danio) {
-		if (self.sinVida()) {
-			self.morir()
-			//game.removeTickEvent(enemigo)
-		} else {vida -= danio}
-	}
-	
-	method irAUnSegundoPlano(){ position= game.at(-20,-20) }
 	
 	method morir() {
-		 	conVida = false
-		game.removeVisual(self)
-		self.irAUnSegundoPlano()
+		game.addVisualIn(personajeMuerto, position)
+		game.removeVisual(self)		
+	}	
+	
+	method recibirDanio(_danio) {
+		game.sound("danioPj.mp3").play()
+		vida = 0.max(vida - _danio)
+		self.verificarVida()
 	}
 	
-	method vida(){
-		return vida
-	}
+}
+
+object personajeMuerto {
+	method image() = "personajeMuerto.png"
 }
