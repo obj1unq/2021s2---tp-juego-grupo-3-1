@@ -85,9 +85,13 @@ class Enemigo{
     	if (vida < 1) {self.morir()}
     }
 
-	method recibirDanio(_danio) {
-		//game.sound("danioEnemigo.mp3").play()
+	method restarVida(_danio){
 		vida = 0.max(vida - _danio)
+	}
+
+	method recibirDanio(_danio) {
+		game.sound("danioEnemigo.mp3").play()
+		self.restarVida(_danio)
 		self.verificarVida()
 	}
 	

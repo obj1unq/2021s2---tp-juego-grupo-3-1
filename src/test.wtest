@@ -13,11 +13,9 @@ describe "niveles" {
 		game.height(12)
 		game.cellSize(50)
 		nivel1.iniciar()
-		// game.start()
 	}
 
 	test "pasar de nivel" {	
-		
 		puerta.serAgarrado()
 		assert.equals(nivel1, puerta.nivelActual())
 		fabricaDeEnemigos.enemigosCreados().forEach({ enemigo => enemigo.morir()})
@@ -52,8 +50,6 @@ describe "personaje" {
 		game.width(15)
 		game.height(12)
 		game.cellSize(50)
-		nivel1.iniciar()
-		// game.start()
 	}
 	
 	test "movimiento" {
@@ -75,23 +71,21 @@ describe "personaje" {
 	test "recibir danio" {		
 		assert.equals(12, personaje.vida())
 
-		personaje.recibirDanio(6)
+		personaje.restarVida(6)
 		assert.equals(6, personaje.vida())
 		
-		personaje.recibirDanio(6)
+		personaje.restarVida(6)
 		assert.equals(0, personaje.vida())
 	}
 }
 
 describe "enemigos" {
     const enemigo = new Enemigo(vida = 3,danio=1, nombre= "bichoAzul", position = game.at(3,6) )
-	
+
 	method initialize(){
 		game.width(15)
 		game.height(12)
 		game.cellSize(50)
-		nivel1.iniciar()
-		// game.start()
 	}
 	
 	test "movimiento" {
@@ -109,7 +103,9 @@ describe "enemigos" {
 	
 	test "recibir danio" {		
 		assert.equals(3, enemigo.vida())
-		enemigo.recibirDanio(1)
+		enemigo.restarVida(1)
 		assert.equals(2, enemigo.vida())
+		enemigo.restarVida(2)
+		assert.equals(0, enemigo.vida())
 	}
 }
