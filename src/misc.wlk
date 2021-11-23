@@ -2,22 +2,28 @@ import wollok.game.*
 import personaje.*
 import enemigos.*
 import decorado.*
+import geografia.*
 
 object vidaPj {
-	const property position = game.at(0,11)
+	const property position = new MiPosicion(x = 0, y = 11)
 	method image() = "vidaPj" + personaje.vida() + ".png"
 }
 
 object avisoPuerta {
+	const property position = new MiPosicion(x = 8, y = 10)
 	method image() = "avisoPuerta.png"
 
 	method mostrarse() {
 		if (!monitor.estaEnElJuego(self)) {
-			game.addVisualIn(self, game.at(8,10))
+			game.addVisual(self)
 			game.schedule(2000, {=>
 			game.removeVisual(self)})
 		}			
 	}
+	
+	//polimorfismo
+	method serAgarrado(){}
+	method recibirDanio(danio, direccion) {}
 }
 
 object monitor {

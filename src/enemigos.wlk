@@ -24,7 +24,7 @@ class EnemigoMuerto {
 }
 
 class Enemigo{
- 	var property vida 
+ 	var vida 
  	var property orientacion = derecha
  	var property position = randomizer.emptyPosition()
 	const nombre  
