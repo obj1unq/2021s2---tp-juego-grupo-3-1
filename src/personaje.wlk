@@ -13,6 +13,9 @@ object personaje {
 	
 	method image()= "pj" + arma.sufijo() + orientacion.sufijo() + ".png"
 	
+	method recuperarVida(_vida){
+		vida += _vida
+	}	
 	method puedeMover(direccion) {
 		return direcciones.estaLibre(direccion.siguiente(position))
 	}

@@ -29,6 +29,7 @@ class Enemigo{
  	var property position = randomizer.emptyPosition()
 	const nombre  
 	const property danio 
+	const drop= false
 	
 	method image(){
 		 return nombre + orientacion.sufijo() + ".png" 
@@ -94,16 +95,19 @@ class Enemigo{
     
     method morir() {
     	game.removeTickEvent("Exploracion de " + self.identity())
-    	const enemigoMue = new EnemigoMuerto(position = position.clone())
-    	enemigoMue.verificarPosicion()
-    	game.addVisual(enemigoMue)
+    	if(not drop){
+    		const enemigoMue = new EnemigoMuerto(position = position.clone())
+    		enemigoMue.verificarPosicion()
+    		game.addVisual(enemigoMue)
+    	}else{self.dropear() }
     	fabricaDeEnemigos.removerEnemigo(self)
     	game.removeVisual(self)
-    	monitor.verificarNivel()    	
+    	monitor.verificarNivel() 
+    	  	
     }
     
     method verificarVida() {
-    	if (vida < 1) {self.morir()}
+    	if (vida < 1) {self.morir();}
     }
 
 	method restarVida(_danio){
@@ -116,6 +120,20 @@ class Enemigo{
 		self.retrocederSiPuede(direccion)
 		self.restarVida(_danio)
 	}
+	
+	method dropear(){
+		const posibilidadDeDejarObjeto = (0..9).anyOne()
+		if(posibilidadDeDejarObjeto > 7){
+			self.dejarCaerItem()
+		}
+	}
+	
+	method dejarCaerItem(){
+		if(drop){
+			game.addVisual(new Item(position =self.position()))
+		}
+	}
+	
 	
 	//polimorfismo
 	method serAgarrado() {}
@@ -132,10 +150,19 @@ object fabricaDeEnemigos {
 						   nombre= "demon")
 	}
 	
+	method crearMomia() {
+		return new Enemigo(vida = 5,
+				           danio=2,
+						   nombre= "momia")
+	}
+	
+	
 	method crearBichoAzul() {
 		return new Enemigo(vida = 3,
 				           danio=1,
-					       nombre= "bichoAzul")
+					       nombre= "bichoAzul",
+					       drop= true
+					       )
 	}
 	
 	method crearEnemigoAleatorio() {
