@@ -7,46 +7,59 @@ import decorado.*
 import configuraciones.*
 import musica.*
 import inicio.*
+import misc.*
+import randomizer.*
 
 class Nivel {
+	var enemigosDerrotados = 0
+	
 	method iniciar() {
 		game.clear()
 		config.teclado()
+		self.agregarFondo()
 		game.addVisual(personaje)
-		self.agregarItems()
-		self.agregarEnemigos()
-		self.agregarDecoracion()
+		game.addVisual(vidaPj)
 		self.agregarPuerta()
+		self.agregarItems()
+		self.agregarEnemigos(5)
+		self.agregarDecoracion(5)
+	}
+	
+	method agregarEnemigos(cantidad) {
+		fabricaDeEnemigos.crearEnemigosAleatorios(cantidad)
+		fabricaDeEnemigos.dibujarTodos()
+		fabricaDeEnemigos.activarExploracionDeTodos()
 	}
 
 	method siguienteNivel() {}
-	method agregarDecoracion() {}
-	method agregarEnemigos() {
-		creadorDeEnemigos.dibujarEnemigos(5)
-		creadorDeEnemigos.moverATodos()
+	
+
+	method agregarDecoracion(cantidad){
+		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
 	}
+
 	method agregarItems() {}
 
 	method agregarPuerta(){
 		puerta.nivelActual(self)
+		puerta.cerrar()
 		game.addVisual(puerta)
+	}
+
+	method agregarFondo(){
+		game.addVisual(fondo)
 	}
 
 	method obtenerDecoracion(){
 		return new Decorado(
 			image = self.obtenerNombreAleatorio(),
-			position = self.posicionAleatoria()
+			position = randomizer.emptyPosition()
 		)
 	}
 
 	method obtenerNombreAleatorio(){
 		return "cripta" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
-
-	method posicionAleatoria(){
-		return game.at(1.randomUpTo(10), 1.randomUpTo(10))
-	}
-	
 }
 
 object nivel1 inherits Nivel {
@@ -64,6 +77,7 @@ object nivel1 inherits Nivel {
 		
 	override method agregarItems(){
 		game.addVisual(rama)
+<<<<<<< HEAD
 		game.addVisual(new ArmaADistancia(arma = arco))
 		game.addVisual(new ArmaADistancia(arma = baculo))
 		
@@ -73,66 +87,58 @@ object nivel1 inherits Nivel {
 		game.addVisual(self.obtenerDecoracion())
 		game.addVisual(self.obtenerDecoracion())
 		game.addVisual(self.obtenerDecoracion())
+=======
+		game.addVisual(arco)
+>>>>>>> branch 'master' of git@github.com:obj1unq/2021s2---tp-juego-grupo-3-1.git
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel2.iniciar()
 	}
 }
 
 object nivel2 inherits Nivel {
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
+	override method agregarFondo(){
+		fondo.image("background3.jpg")
+		super()
 	}
 
-	method obtenerNombreAleatorio(){
+	override method obtenerNombreAleatorio(){
 		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel3.iniciar()
 	}
+
 }
 
 object nivel3 inherits Nivel {
-
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
+	override method agregarFondo(){
+		fondo.image("background2.jpg")
+		super()
 	}
 
-	method obtenerNombreAleatorio(){
+	override method obtenerNombreAleatorio(){
 		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
 
 	override method siguienteNivel() {
+		super()
 		nivel4.iniciar()
 	}
 }
 
 object nivel4 inherits Nivel {
-	override method agregarDecoracion(){
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
-		game.addVisual(self.obtenerDecoracion())
+	override method agregarFondo(){
+		fondo.image("background1.jpg")
+		super()
 	}
 
-	override method agregarEnemigos(){
-		// Agregar boss
-	}
 
-	method agregarPuerta(){
+	override method agregarPuerta(){
 		// sin puerta
 	}
 }
