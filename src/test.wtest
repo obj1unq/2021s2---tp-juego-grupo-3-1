@@ -1,0 +1,6 @@
+import armas.*
+test "testX" {
+
+	assert.that(true)
+
+}

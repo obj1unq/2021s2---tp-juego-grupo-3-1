@@ -176,11 +176,11 @@ class Flecha {
 
 }
 
-class BolaDeFuego {
-	var property orientacion = personaje.orientacion()
-	method image() = "bolaDeFuego"+ orientacion.sufijo() +".png"
+class BolaDeFuego inherits Flecha{
+
+	override method image() = "bolaDeFuego"+ orientacion.sufijo() +".png"
 	
-	method danio(){
+	override method danio(){
 		return 2
 	}
 
