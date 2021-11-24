@@ -81,7 +81,7 @@ describe "personaje" {
 }
 
 describe "enemigos" {
-    const enemigo = new Enemigo(vida = 3,danio=1, nombre= "bichoAzul", position = game.at(3,6) )
+    const enemigo = new Enemigo(vida = 3,danio=1, nombre= "bichoAzul", position = new MiPosicion(x=3,y=6) )
 
 	method initialize(){
 		game.width(15)

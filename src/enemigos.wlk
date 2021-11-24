@@ -23,13 +23,12 @@ class EnemigoMuerto {
 	method serAgarrado() {}
 }
 
-class Enemigo{
- 	var vida 
+class Enemigo {
+ 	var property vida 
  	var property orientacion = derecha
  	var property position = randomizer.emptyPosition()
 	const nombre  
 	const property danio 
-	const drop= false
 	
 	method image(){
 		 return nombre + orientacion.sufijo() + ".png" 
@@ -93,17 +92,20 @@ class Enemigo{
     				self.atacarOMover()})
     }
     
+    method drop() {
+		return {
+				const enemigoMue = new EnemigoMuerto(position = position.clone())
+   				enemigoMue.verificarPosicion()
+   				game.addVisual(enemigoMue)
+   				}
+    }
+    
     method morir() {
     	game.removeTickEvent("Exploracion de " + self.identity())
-    	if(not drop){
-    		const enemigoMue = new EnemigoMuerto(position = position.clone())
-    		enemigoMue.verificarPosicion()
-    		game.addVisual(enemigoMue)
-    	}else{self.dropear() }
+    	self.drop().apply()
     	fabricaDeEnemigos.removerEnemigo(self)
     	game.removeVisual(self)
     	monitor.verificarNivel() 
-    	  	
     }
     
     method verificarVida() {
@@ -121,27 +123,32 @@ class Enemigo{
 		self.restarVida(_danio)
 	}
 	
-	method dropear(){
-		const posibilidadDeDejarObjeto = (0..9).anyOne()
-		if(posibilidadDeDejarObjeto > 7){
-			self.dejarCaerItem()
-		}
-	}
-	
-	method dejarCaerItem(){
-		if(drop){
-			game.addVisual(new Item(position =self.position()))
-		}
-	}
-	
-	
 	//polimorfismo
 	method serAgarrado() {}
 }
 
 
+class EnemigoConDrop inherits Enemigo {
+
+	method numAl() {
+		return [0, 1, 1, 1, 1].anyOne()
+	}
+	
+	method dropDePocion() {
+		return {
+				const poc = new Pocion(position = position.clone());
+				poc.verificarPosicion();
+				game.addVisual(poc);
+				}
+	}
+	
+	override method drop() {
+		return [super(), self.dropDePocion()].get(self.numAl())
+	}
+}
+
 object fabricaDeEnemigos {
-	const enemigosDisponibles = [{self.crearBichoAzul()}, {self.crearDemon()}]
+	const enemigosDisponibles = [{self.crearEsqueleto()}, {self.crearDemon()}]
 	const property enemigosCreados = []
 	
 	method crearDemon() {
@@ -157,12 +164,11 @@ object fabricaDeEnemigos {
 	}
 	
 	
-	method crearBichoAzul() {
-		return new Enemigo(vida = 3,
-				           danio=1,
-					       nombre= "bichoAzul",
-					       drop= true
-					       )
+	method crearEsqueleto() {
+		return new EnemigoConDrop(vida = 4,
+						   		  danio = 2,
+						   		  nombre = "esqueleto"	
+		)
 	}
 	
 	method crearEnemigoAleatorio() {
@@ -187,5 +193,14 @@ object fabricaDeEnemigos {
 	
 	method enemigosRestantes() {
 		return enemigosCreados.size()
+	}
+	
+	method removerYBorrar(enemigo) {
+		game.removeVisual(enemigo)
+		enemigosCreados.remove(enemigo)
+	}
+	
+	method removerYBorrarTodos() {
+		enemigosCreados.forEach({enemigo => self.removerYBorrar(enemigo)})
 	}
 }

@@ -7,15 +7,19 @@ object personaje {
 	
 	var property position = new MiPosicion(x=3, y=6)
 	var property orientacion = derecha
-	var property vida = 12
+	var property vida
 	var property arma = manos
 
 	
 	method image()= "pj" + arma.sufijo() + orientacion.sufijo() + ".png"
 	
-	method recuperarVida(_vida){
-		vida += _vida
+	method recuperarVida(cant){
+		game.sound("vidaExtra.mp3").play()
+		(cant.min(12 - vida)).times({x =>
+			game.schedule(500, {=> vida += 1})
+		})
 	}	
+	
 	method puedeMover(direccion) {
 		return direcciones.estaLibre(direccion.siguiente(position))
 	}
@@ -54,8 +58,9 @@ object personaje {
 	}
 	
 	method morir() {
-		game.addVisualIn(personajeMuerto, position)
 		game.removeVisual(self)		
+		personajeMuerto.aparecerCon(arma)
+		monitor.mostrarGameOver()
 	}
 
 	method restarVida(_danio){
@@ -74,9 +79,17 @@ object personaje {
 		self.restarVida(_danio)
 		self.verificarVida()
 	}
-	
 }
 
 object personajeMuerto {
-	method image() = "personajeMuerto.png"
+	var arma
+	method image() = "personajeMuerto" + arma.sufijo() +  ".png"
+	
+	method aparecerCon(_arma) {
+		arma = _arma
+		game.addVisualIn(self, personaje.position().clone())
+	}
+	
+	//polimorfismo
+	method recibirDanio(danio, direccion) {}
 }

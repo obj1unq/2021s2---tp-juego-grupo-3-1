@@ -1,21 +1,19 @@
 import wollok.game.*
 import personaje.*
-class Item{
-	var property position
-	const vidaQueOtorga = 3
-	method image(){
-		return "posion.png"
+import enemigos.*
+
+class Pocion inherits EnemigoMuerto {
+	
+	override method image() {
+		return "pocion.png"
 	}
 	
-	method serAgarrado() {
+	override method serAgarrado() {
 		game.removeVisual(self)
-		self.regenerarVida(personaje)
-		
+		self.curarPersonaje()
 	}
 	
-	method regenerarVida(persona){
-		persona.recuperarVida(vidaQueOtorga)
+	method curarPersonaje(){
+		personaje.recuperarVida(3)
 	}
-	//polimorfismo
-	method recibirDanio(danio, direccion){}
 }

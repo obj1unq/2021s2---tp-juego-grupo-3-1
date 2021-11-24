@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="arco y flecha/|arco y flecha/|ataque cercano/|ataque cercano/" kind="src" path="assets/armas"/>
-	<classpathentry kind="src" path="assets/personaje"/>
-	<classpathentry kind="src" path="assets/bichoAzul"/>
-	<classpathentry kind="src" path="assets/objetos decorativos"/>
-	<classpathentry kind="src" path="assets/demon"/>
-	<classpathentry kind="src" path="assets/musica"/>
-	<classpathentry kind="src" path="assets/inicio"/>
-	<classpathentry excluding="armas/|personaje/|bichoAzul/|objetos decorativos/|demon/|musica/|inicio/|sonidos/|efectos de sonido/|efectos de sonido/|items/|fondos/|salud/|armas/arco y flecha/|armas/ataque cercano/" kind="src" path="assets"/>
-	<classpathentry kind="src" path="assets/efectos de sonido"/>
-	<classpathentry kind="src" path="assets/items"/>
+	<classpathentry excluding="efectos de sonido/|objetos decorativos/|armas/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|fondos/|inicio/|items/|musica/|personaje/|salud/|efectos de sonido/|objetos decorativos/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|armas/arco y flecha/|armas/ataque cercano/|armas/baculo de fuego/|game over/|game over/|armas/" kind="src" path="assets"/>
 	<classpathentry kind="src" path="assets/fondos"/>
+	<classpathentry kind="src" path="assets/inicio"/>
+	<classpathentry kind="src" path="assets/items"/>
+	<classpathentry kind="src" path="assets/musica"/>
+	<classpathentry kind="src" path="assets/personaje"/>
 	<classpathentry kind="src" path="assets/salud"/>
+	<classpathentry kind="src" path="assets/efectos de sonido"/>
+	<classpathentry kind="src" path="assets/objetos decorativos"/>
+	<classpathentry excluding="bichoAzul/|demon/|esqueleto/" kind="src" path="assets/enemigos"/>
+	<classpathentry kind="src" path="assets/enemigos/bichoAzul"/>
+	<classpathentry kind="src" path="assets/enemigos/demon"/>
+	<classpathentry kind="src" path="assets/enemigos/esqueleto"/>
 	<classpathentry kind="src" path="assets/armas/arco y flecha"/>
 	<classpathentry kind="src" path="assets/armas/ataque cercano"/>
+	<classpathentry kind="src" path="assets/armas/baculo de fuego"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets/game over"/>
+	<classpathentry excluding="arco y flecha/|ataque cercano/|baculo de fuego/" kind="src" path="assets/armas"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>

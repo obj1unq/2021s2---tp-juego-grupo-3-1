@@ -6,16 +6,16 @@ import armas.*
 import decorado.*
 import configuraciones.*
 import musica.*
-import inicio.*
 import misc.*
 import randomizer.*
 
 class Nivel {
-	
+
 	method iniciar() {
 		game.clear()
 		config.teclado()
 		self.agregarFondo()
+		personaje.vida(5)
 		game.addVisual(personaje)
 		game.addVisual(vidaPj)
 		self.agregarPuerta()
@@ -37,8 +37,17 @@ class Nivel {
 		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
 	}
 
-	method agregarItems() {}
-
+	method itemsDelNivel() {
+		return [rama]
+	}	
+		
+	method agregarItems() {
+		self.itemsDelNivel().forEach({item => if (item != personaje.arma()){
+											  game.addVisual(item)
+											  monitor.itemsEnJuego().add(item)}
+		})
+	}
+		
 	method agregarPuerta(){
 		puerta.nivelActual(self)
 		puerta.cerrar()
@@ -59,28 +68,11 @@ class Nivel {
 	method obtenerNombreAleatorio(){
 		return "cripta" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
+	
 }
 
 object nivel1 inherits Nivel {
-	var property comenzoElJuego = false
 	
-	method mostrarInicio() {
-		pantallaDeInicio.mostrar()
-		game.onTick(800, "Titilar", {=> pantallaDeInicio.titilarLeyenda()})
-		game.schedule(1000, {=>musica.loopear(musica.pantallaInicio())})
-		keyboard.enter().onPressDo({
-			if (!self.comenzoElJuego()) {
-				game.removeTickEvent("Titilar")
-				musica.pantallaInicio().stop()
-				musica.loopear(musica.nivel1())
-				self.iniciar()}})				
-	}
-		
-	override method agregarItems(){
-		game.addVisual(rama)
-		game.addVisual(arco)
-	}
-
 	override method siguienteNivel() {
 		super()
 		nivel2.iniciar()
@@ -88,6 +80,11 @@ object nivel1 inherits Nivel {
 }
 
 object nivel2 inherits Nivel {
+	
+	override method itemsDelNivel() {
+		return super() + [arco]
+	}
+	
 	override method agregarFondo(){
 		fondo.image("background3.jpg")
 		super()
@@ -105,6 +102,10 @@ object nivel2 inherits Nivel {
 }
 
 object nivel3 inherits Nivel {
+	
+	override method itemsDelNivel() {
+		return super() + [arco, baculo]
+	}
 	override method agregarFondo(){
 		fondo.image("background2.jpg")
 		super()
@@ -121,6 +122,11 @@ object nivel3 inherits Nivel {
 }
 
 object nivel4 inherits Nivel {
+	
+	override method itemsDelNivel() {
+		return super() + [arco, baculo]
+	}
+	
 	override method agregarFondo(){
 		fondo.image("background1.jpg")
 		super()

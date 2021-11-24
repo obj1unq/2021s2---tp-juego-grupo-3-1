@@ -111,6 +111,10 @@ object direcciones {
 				else {self.unaDireccionLibreDesde(posicion)}
 	}
 	
+	method unaPosicionLibreDesde(posicion) {
+		return self.unaDireccionLibreDesde(posicion).siguiente(posicion)
+	}
+	
 	method estaElPersonajeHacia(posicion) {
 		return game.getObjectsIn(posicion).contains(personaje)
 	}

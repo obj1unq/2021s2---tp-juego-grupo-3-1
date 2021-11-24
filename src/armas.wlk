@@ -8,8 +8,10 @@ object ataqueEnemigo {
 	method image() = "ataqueEnemigo.png"
 	
 	method atacarPersonaje(_danio, direccion) {
-		game.addVisualIn(self, personaje.position())
-		game.schedule(150, {=> game.removeVisual(self)})
+		if (!monitor.estaEnElJuego(self)){
+			game.addVisualIn(self, personaje.position())
+			game.schedule(150, {=> game.removeVisual(self)})
+		}
 		personaje.recibirDanio(_danio, direccion)
 	}
 	
@@ -92,9 +94,10 @@ class ArmaCorta inherits Manos {
 	}
 	
 	override method arrojarse() {
-		game.addVisualIn(self, direcciones.unaDireccionLibreDesde(personaje.position()).
-							   siguiente(personaje.position())
-		)
+		const nuevaPosicion = direcciones.unaPosicionLibreDesde(personaje.position())
+		position.x(nuevaPosicion.x())
+		position.y(nuevaPosicion.y())
+		game.addVisual(self)
 	}
 
 	method serAgarrado() {
@@ -112,7 +115,6 @@ class ArmaADistancia inherits ArmaCorta {
 			new Municion(nombre = nombreMunicion, armaAsociada = self).disparar()			
 		}
 	}
-	
 	
 	method recargar(){
 		cargado = true
@@ -172,8 +174,9 @@ class Municion {
 }
 
 const arco = new ArmaADistancia(nombre = "arco", danio = 1, nombreMunicion = "flecha")
-const rama = new ArmaCorta(nombre = "rama", danio = 2)
+const rama = new ArmaCorta(nombre = "rama", danio = 5)
 const manos = new Manos()
+const baculo = new ArmaADistancia(nombre = "baculo", danio = 2, nombreMunicion = "bolaDeFuego")
 
 
  
