@@ -131,7 +131,7 @@ class Enemigo {
 class EnemigoConDrop inherits Enemigo {
 
 	method numAl() {
-		return [0, 1, 1, 1, 1].anyOne()
+		return [1, 0, 0, 1, 0].anyOne()
 	}
 	
 	method dropDePocion() {
