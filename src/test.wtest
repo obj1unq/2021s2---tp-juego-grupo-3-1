@@ -28,7 +28,6 @@ describe "niveles" {
 		assert.that(game.hasVisual(puerta))
 		assert.that(game.hasVisual(personaje))
 		assert.that(game.hasVisual(rama))
-		assert.that(game.hasVisual(arco))
 		assert.equals("background.jpg", fondo.image())
 		assert.equals(5, fabricaDeEnemigos.enemigosCreados().size())
 		assert.equals(nivel1, puerta.nivelActual())
@@ -70,12 +69,12 @@ describe "personaje" {
 	}
 
 	test "recibir danio" {		
-		assert.equals(12, personaje.vida())
+		assert.equals(10, personaje.vida())
 
 		personaje.restarVida(6)
-		assert.equals(6, personaje.vida())
+		assert.equals(4, personaje.vida())
 		
-		personaje.restarVida(6)
+		personaje.restarVida(4)
 		assert.equals(0, personaje.vida())
 	}
 }

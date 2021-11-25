@@ -75,8 +75,9 @@ class Nivel {
 object nivel1 inherits Nivel {
 	
 	override method siguienteNivel() {
-		super()
-		game.schedule(2500, {=>nivel2.iniciar()})
+		//super()
+		//game.schedule(2500, {=>nivel2.iniciar()})
+		nivel2.iniciar()
 	}
 }
 
@@ -129,7 +130,7 @@ object nivel4 inherits Nivel {
 	}
 	
 	override method agregarFondo(){
-		fondo.image("background1.jpg")
+		fondo.image("background4.jpg")
 		super()
 	}
 
