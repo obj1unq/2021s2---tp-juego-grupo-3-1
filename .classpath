@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-<<<<<<< HEAD
-	<classpathentry excluding="efectos de sonido/|game over/|objetos decorativos/|armas/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|fondos/|inicio/|items/|musica/|personaje/|salud/|efectos de sonido/|game over/|objetos decorativos/|armas/arco y flecha/|armas/ataque cercano/|armas/baculo de fuego/" kind="src" path="assets"/>
-	<classpathentry excluding="arco y flecha/|ataque cercano/|baculo de fuego/|arco y flecha/|ataque cercano/|baculo de fuego/" kind="src" path="assets/armas"/>
-	<classpathentry excluding="bichoAzul/|demon/|esqueleto/" kind="src" path="assets/enemigos"/>
-	<classpathentry kind="src" path="assets/enemigos/bichoAzul"/>
-	<classpathentry kind="src" path="assets/enemigos/demon"/>
-	<classpathentry kind="src" path="assets/enemigos/esqueleto"/>
-=======
-	<classpathentry excluding="efectos de sonido/|objetos decorativos/|armas/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|fondos/|inicio/|items/|musica/|personaje/|salud/|efectos de sonido/|objetos decorativos/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|armas/arco y flecha/|armas/ataque cercano/|armas/baculo de fuego/|game over/|game over/|armas/|enemigo/momia/" kind="src" path="assets"/>
->>>>>>> branch 'master' of git@github.com:obj1unq/2021s2---tp-juego-grupo-3-1.git
+	<classpathentry excluding="efectos de sonido/|objetos decorativos/|armas/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|fondos/|inicio/|items/|musica/|personaje/|salud/|efectos de sonido/|objetos decorativos/|enemigos/|enemigos/bichoAzul/|enemigos/demon/|enemigos/esqueleto/|armas/arco y flecha/|armas/ataque cercano/|armas/baculo de fuego/|game over/|game over/|armas/" kind="src" path="assets"/>
 	<classpathentry kind="src" path="assets/fondos"/>
 	<classpathentry kind="src" path="assets/inicio"/>
 	<classpathentry kind="src" path="assets/items"/>
@@ -17,19 +8,17 @@
 	<classpathentry kind="src" path="assets/personaje"/>
 	<classpathentry kind="src" path="assets/salud"/>
 	<classpathentry kind="src" path="assets/efectos de sonido"/>
-	<classpathentry kind="src" path="assets/game over"/>
 	<classpathentry kind="src" path="assets/objetos decorativos"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="bichoAzul/|demon/|esqueleto/" kind="src" path="assets/enemigos"/>
+	<classpathentry kind="src" path="assets/enemigos/bichoAzul"/>
+	<classpathentry kind="src" path="assets/enemigos/demon"/>
+	<classpathentry kind="src" path="assets/enemigos/esqueleto"/>
 	<classpathentry kind="src" path="assets/armas/arco y flecha"/>
 	<classpathentry kind="src" path="assets/armas/ataque cercano"/>
 	<classpathentry kind="src" path="assets/armas/baculo de fuego"/>
-<<<<<<< HEAD
-=======
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="assets/game over"/>
 	<classpathentry excluding="arco y flecha/|ataque cercano/|baculo de fuego/" kind="src" path="assets/armas"/>
-	<classpathentry kind="src" path="assets/enemigo/momia"/>
->>>>>>> branch 'master' of git@github.com:obj1unq/2021s2---tp-juego-grupo-3-1.git
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
