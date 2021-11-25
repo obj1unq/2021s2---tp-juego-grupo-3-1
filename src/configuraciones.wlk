@@ -3,7 +3,6 @@ import personaje.*
 import geografia.*
 import armas.*
 import niveles.*
-import inicio.*
 import misc.*
 
 object config {

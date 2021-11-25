@@ -4,23 +4,24 @@ import geografia.*
 import misc.*
 import randomizer.*
 
-object ataqueEnemigo {
+object ataqueEnemigo inherits Polimorfi {
+	
+	method position() {
+		return personaje.position()
+	}
+	
 	method image() = "ataqueEnemigo.png"
 	
 	method atacarPersonaje(_danio, direccion) {
 		if (!monitor.estaEnElJuego(self)){
-			game.addVisualIn(self, personaje.position())
+			game.addVisual(self)
 			game.schedule(150, {=> game.removeVisual(self)})
 		}
 		personaje.recibirDanio(_danio, direccion)
 	}
-	
-	//polimorfismo
-	method serAgarrado() {}
-	method recibirDanio(danio, direccion) {}
 }
 
-object ataqueLejano {
+object ataqueLejano inherits Polimorfi {
 	
 	method image() = "enemigoDaniado.png"
 	
@@ -29,19 +30,15 @@ object ataqueLejano {
 		enemigo.recibirDanio(municion.danio(), direccion)
 		game.schedule(70, {=> game.removeVisual(self)})
 	}
-	
-	//polimorfismo
-	method serAgarrado() {}
-	method recibirDanio(danio, direccion) {}
 }
 
-object ataqueCercano {
+object ataqueCercano inherits Polimorfi {
 	
 	method image() = "ataque" + personaje.arma().sufijo() + personaje.orientacion().sufijo() + ".png"
 	
 	
 	method atacar(direccion) {
-		if (!monitor.estaEnElJuego(self)) { //para controlar superposiciones de mensajes
+		if (!monitor.estaEnElJuego(self)) {
 			game.addVisualIn(self, personaje.posicionEnfrente())
 			game.onCollideDo(self, {enemigo => enemigo.recibirDanio(self.danio(), direccion)})
 			game.schedule(70, {=> game.removeVisual(self)})
@@ -51,12 +48,6 @@ object ataqueCercano {
 	method danio() {
 		return personaje.fuerzaDeAtaque()
 	}
-	
-	
-	//polimorfismo
-	method serAgarrado() {}
-	method recibirDanio(danio, direccion) {}
-	
 }
 
 class Manos {
@@ -74,8 +65,8 @@ class Manos {
 	}
 	
 	//polimorfismo
-	method recibirDanio(_danio, direccion){}
 	method arrojarse() {}
+	method recibirDanio(danio, direccion) {}
 }
 
 class ArmaCorta inherits Manos {
@@ -121,9 +112,9 @@ class ArmaADistancia inherits ArmaCorta {
 	}
 }
 
-class Municion {
+class Municion inherits Polimorfi {
 	
-	var property position = personaje.position()
+	var property position = personaje.position().clone()
 	const orientacion = personaje.orientacion()
 	var distanciaPorRecorrer = 6
 	const nombre
@@ -151,13 +142,13 @@ class Municion {
 	}
 	
 	method borrar(){
-		game.removeVisual(self)
 		game.removeTickEvent("Movimiento de " + self.identity())
+		game.removeVisual(self)
 		armaAsociada.recargar()
 	}
 	
 	method avanzar(){
-		position = orientacion.siguiente(position)
+		orientacion.avanzarUno(position)
 		distanciaPorRecorrer -= 1
 	}
 	
@@ -165,12 +156,7 @@ class Municion {
 		if (distanciaPorRecorrer == 0) {
 			self.borrar()
 		}
-	}
-	
-	//polimorfismo
-	method serAgarrado() {}
-	method recibirDanio(danio, direccion){}
-	
+	}	
 }
 
 const arco = new ArmaADistancia(nombre = "arco", danio = 1, nombreMunicion = "flecha")

@@ -7,15 +7,20 @@ object personaje {
 	
 	var property position = new MiPosicion(x=3, y=6)
 	var property orientacion = derecha
-	var property vida
+	var property vida = 10
 	var property arma = manos
 
 	
 	method image()= "pj" + arma.sufijo() + orientacion.sufijo() + ".png"
 	
+	method reiniciar() {
+		vida = 10
+		arma = manos
+	}
+	
 	method recuperarVida(cant){
 		game.sound("vidaExtra.mp3").play()
-		(cant.min(12 - vida)).times({x =>
+		(cant.min(10 - vida)).times({x =>
 			game.schedule(500, {=> vida += 1})
 		})
 	}	

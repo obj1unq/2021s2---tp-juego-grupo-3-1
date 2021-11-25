@@ -5,7 +5,7 @@ import misc.*
 program game {
 	game.width(15)
 	game.height(12)
-	game.boardGround("background.jpg")
+	game.boardGround("black.png")
 	monitor.mostrarInicio()
 	game.start()
 }		

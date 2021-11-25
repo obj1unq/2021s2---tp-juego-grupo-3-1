@@ -15,7 +15,6 @@ class Nivel {
 		game.clear()
 		config.teclado()
 		self.agregarFondo()
-		personaje.vida(5)
 		game.addVisual(personaje)
 		game.addVisual(vidaPj)
 		self.agregarPuerta()
@@ -30,7 +29,9 @@ class Nivel {
 		fabricaDeEnemigos.activarExploracionDeTodos()
 	}
 
-	method siguienteNivel() {}
+	method siguienteNivel() {
+		monitor.mostrarPantallaDeCarga()
+	}
 	
 
 	method agregarDecoracion(cantidad){
@@ -75,7 +76,7 @@ object nivel1 inherits Nivel {
 	
 	override method siguienteNivel() {
 		super()
-		nivel2.iniciar()
+		game.schedule(2500, {=>nivel2.iniciar()})
 	}
 }
 
@@ -96,7 +97,7 @@ object nivel2 inherits Nivel {
 
 	override method siguienteNivel() {
 		super()
-		nivel3.iniciar()
+		game.schedule(2500, {=>nivel3.iniciar()})
 	}
 
 }
@@ -117,7 +118,7 @@ object nivel3 inherits Nivel {
 
 	override method siguienteNivel() {
 		super()
-		nivel4.iniciar()
+		game.schedule(2500, {=>nivel4.iniciar()})
 	}
 }
 

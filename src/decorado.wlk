@@ -2,16 +2,12 @@ import wollok.game.*
 import niveles.*
 import misc.*
 
-class Decorado {
+class Decorado inherits Polimorfi {
 	var property image
 	var property position
-	
-	//polimorfismo
-	method serAgarrado(){}
-	method recibirDanio(danio, direccion){}
 }
 
-object puerta{
+object puerta {
 	var property nivelActual
 	var property position = game.at(12,11)
 	var imagen
@@ -32,11 +28,10 @@ object puerta{
 	}
 	
 	//polimorfismo
-	method recibirDanio(danio, direccion){}
-
+	method recibirDanio(danio, direccion) {}
 }
 
-object fondo{
+object fondo inherits Polimorfi {
 	var property image = "background.jpg"
 	method position(){ return game.at(0, 0)}
 }
