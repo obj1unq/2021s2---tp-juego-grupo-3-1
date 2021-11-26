@@ -148,7 +148,7 @@ class EnemigoConDrop inherits Enemigo {
 }
 
 object fabricaDeEnemigos {
-	const enemigosDisponibles = [{self.crearEsqueleto()}, {self.crearDemon()}]
+	var property enemigosDisponibles = []
 	const property enemigosCreados = []
 	
 	method crearDemon() {
@@ -168,6 +168,13 @@ object fabricaDeEnemigos {
 		return new EnemigoConDrop(vida = 4,
 						   		  danio = 2,
 						   		  nombre = "esqueleto"	
+		)
+	}
+	
+	method crearMago() {
+		return new EnemigoConDrop(vida = 1,
+						   		  danio = 3,
+						   		  nombre = "mago"	
 		)
 	}
 	
@@ -202,5 +209,11 @@ object fabricaDeEnemigos {
 	
 	method removerYBorrarTodos() {
 		enemigosCreados.forEach({enemigo => self.removerYBorrar(enemigo)})
+	}
+	
+	method crearEnemigos(cantidad) {
+		self.crearEnemigosAleatorios(cantidad)
+		self.dibujarTodos()
+		self.activarExploracionDeTodos()
 	}
 }

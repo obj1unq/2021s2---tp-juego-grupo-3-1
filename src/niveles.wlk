@@ -24,9 +24,8 @@ class Nivel {
 	}
 	
 	method agregarEnemigos(cantidad) {
-		fabricaDeEnemigos.crearEnemigosAleatorios(cantidad)
-		fabricaDeEnemigos.dibujarTodos()
-		fabricaDeEnemigos.activarExploracionDeTodos()
+		fabricaDeEnemigos.enemigosDisponibles(self.enemigosDisponibles())
+		fabricaDeEnemigos.crearEnemigos(cantidad)
 	}
 
 	method siguienteNivel() {
@@ -70,6 +69,10 @@ class Nivel {
 		return "cripta" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
 	
+	method enemigosDisponibles(){
+		return [{fabricaDeEnemigos.crearDemon()}, {fabricaDeEnemigos.crearMago()}]
+	}
+	
 }
 
 object nivel1 inherits Nivel {
@@ -99,6 +102,10 @@ object nivel2 inherits Nivel {
 	override method siguienteNivel() {
 		super()
 		game.schedule(2500, {=>nivel3.iniciar()})
+	}
+	
+	override method enemigosDisponibles() {
+		return [{fabricaDeEnemigos.crearMago()}]
 	}
 
 }
