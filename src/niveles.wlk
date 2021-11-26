@@ -70,7 +70,7 @@ class Nivel {
 	}
 	
 	method enemigosDisponibles(){
-		return [{fabricaDeEnemigos.crearDemon()}, {fabricaDeEnemigos.crearMago()}]
+		return [{fabricaDeEnemigos.crearMago()}]
 	}
 	
 }
@@ -105,7 +105,7 @@ object nivel2 inherits Nivel {
 	}
 	
 	override method enemigosDisponibles() {
-		return [{fabricaDeEnemigos.crearMago()}]
+		return [{fabricaDeEnemigos.crearMomia()}, {fabricaDeEnemigos.crearDemon()}]
 	}
 
 }
@@ -127,6 +127,10 @@ object nivel3 inherits Nivel {
 	override method siguienteNivel() {
 		super()
 		game.schedule(2500, {=>nivel4.iniciar()})
+	}
+
+	override method enemigosDisponibles() {
+		return [{fabricaDeEnemigos.crearCaballero()}]
 	}
 }
 
