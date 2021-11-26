@@ -178,6 +178,17 @@ object fabricaDeEnemigos {
 		)
 	}
 	
+	method crearCaballero() {
+		return new Enemigo(vida = 6,
+						   danio = 1,
+						   nombre = self.caballeroAleatorio()
+		)
+	}
+	
+	method caballeroAleatorio() {
+		return ['grey', 'king', 'armor'].anyOne()
+	}
+	
 	method crearEnemigoAleatorio() {
 		enemigosCreados.add(enemigosDisponibles.anyOne().apply())
 	}
