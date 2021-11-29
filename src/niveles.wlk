@@ -30,8 +30,10 @@ class Nivel {
 
 	method siguienteNivel() {
 		monitor.mostrarPantallaDeCarga()
+		game.schedule(2500, {=>self.pasarNivel()})
 	}
 	
+	method pasarNivel()
 
 	method agregarDecoracion(cantidad){
 		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
@@ -71,15 +73,12 @@ class Nivel {
 	
 	method enemigosDisponibles(){
 		return [{fabricaDeEnemigos.crearMago()}]
-	}
-	
+	}	
 }
 
 object nivel1 inherits Nivel {
 	
-	override method siguienteNivel() {
-		//super()
-		//game.schedule(2500, {=>nivel2.iniciar()})
+	override method pasarNivel() {
 		nivel2.iniciar()
 	}
 }
@@ -99,9 +98,8 @@ object nivel2 inherits Nivel {
 		return "ruinas" + 0.randomUpTo(9).roundUp().toString() + ".png"
 	}
 
-	override method siguienteNivel() {
-		super()
-		game.schedule(2500, {=>nivel3.iniciar()})
+	override method pasarNivel() {
+		nivel3.iniciar()
 	}
 	
 	override method enemigosDisponibles() {
@@ -124,9 +122,8 @@ object nivel3 inherits Nivel {
 		return "madera" + 0.randomUpTo(7).roundUp().toString() + ".png"
 	}
 
-	override method siguienteNivel() {
-		super()
-		game.schedule(2500, {=>nivel4.iniciar()})
+	override method pasarNivel() {
+		nivel4.iniciar()
 	}
 
 	override method enemigosDisponibles() {
@@ -145,8 +142,11 @@ object nivel4 inherits Nivel {
 		super()
 	}
 
-
 	override method agregarPuerta(){
 		// sin puerta
+	}
+	
+	override method pasarNivel(){
+		// nivel final
 	}
 }

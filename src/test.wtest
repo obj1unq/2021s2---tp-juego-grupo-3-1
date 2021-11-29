@@ -16,10 +16,9 @@ describe "niveles" {
 	}
 
 	test "pasar de nivel" {	
-		puerta.serAgarrado()
 		assert.equals(nivel1, puerta.nivelActual())
 		fabricaDeEnemigos.enemigosCreados().forEach({ enemigo => enemigo.morir()})
-		puerta.serAgarrado()
+		nivel1.pasarNivel()
 		assert.equals(nivel2, puerta.nivelActual())
 	}	
 	
@@ -35,7 +34,7 @@ describe "niveles" {
 	
 	test "nivel2" {
 		fabricaDeEnemigos.enemigosCreados().forEach({ enemigo => enemigo.morir()})
-		nivel1.siguienteNivel()
+		nivel1.pasarNivel()
 		
 		assert.equals("background3.jpg", fondo.image())
 		assert.equals(5, fabricaDeEnemigos.enemigosCreados().size())
