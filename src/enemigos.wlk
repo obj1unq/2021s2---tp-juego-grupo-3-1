@@ -131,7 +131,7 @@ class Enemigo {
 class EnemigoConDrop inherits Enemigo {
 
 	method numAl() {
-		return [1, 0, 0, 1, 0].anyOne()
+		return [1, 0, 0, 1, 0, 0].anyOne()
 	}
 	
 	method dropDePocion() {
@@ -145,6 +145,98 @@ class EnemigoConDrop inherits Enemigo {
 	override method drop() {
 		return [super(), self.dropDePocion()].get(self.numAl())
 	}
+}
+
+object boss {
+	var num = 1
+	var rotandoDerecha = true
+    var yendoHaciaDerecha = true
+    var vida = 25
+	
+	const property position = new MiPosicion(x=7, y=10)
+	method image() = "boss" + num + ".png"
+	
+	method seCae(direccion) {
+		return direccion.siguiente(position).x() == -1 || direccion.siguiente(position).y() == 15
+	}
+	
+	method mover() {
+		if (yendoHaciaDerecha && position.x() < 13) {
+			derecha.avanzarUno(position)
+		} else if (!yendoHaciaDerecha && position.x() > 0) {
+			izquierda.avanzarUno(position)
+		} else if (!yendoHaciaDerecha && position.x() == 0) {
+			yendoHaciaDerecha = true
+		} else {yendoHaciaDerecha = false}
+	}
+	
+	method variarNum() {
+		if (rotandoDerecha && num < 5) {
+			num +=1
+		} else if (!rotandoDerecha && num > 1) {
+			num -= 1
+		} else if (!rotandoDerecha && num == 1) {
+		  	rotandoDerecha = true
+		} else {rotandoDerecha = false}
+	}
+	
+	method rotarImagen() {
+		game.onTick(500, "Rotacion de imagen", {=>self.variarNum()})
+	}
+	
+	method activarMovimiento() {
+		game.onTick(500, "Movimiento de boss", {=>self.mover()})
+	}
+	
+	method animar() {
+		self.rotarImagen()
+		self.activarMovimiento()
+		self.activarAtaque()
+	}
+	
+	method aparecer() {
+		game.addVisual(self)
+	}
+	
+	method recibirDanio(_danio, direccion) {
+		game.sound("danioBoss.mp3").play()
+		vida = 0.max(vida - _danio)
+		self.verificarVida()
+	}
+	
+	method verificarVida() {
+		if (vida == 0) {
+			self.acabarConElJuego()
+		}
+	}
+	
+	method ataca() {
+		return [false, false, true].anyOne()
+	}
+	
+	method atacar() {
+		if (self.ataca()) {
+			const ataque = new AtaqueBoss()
+			game.addVisual(ataque)
+			ataque.configurarColision()
+			game.onTick(300, "Movimiento de " + ataque.identity(), {=>ataque.avanzar()})			
+		}
+	}
+	
+	
+	method activarAtaque() {
+		game.onTick(350, "Ataque de boss", {=>self.atacar()})
+	}
+	
+	method acabarConElJuego() {
+		game.schedule(1000, {=>		
+			game.clear()
+			game.schedule(1000, {=>game.stop()})
+		})
+	}
+	
+	method serAgarrado() {}	
+	
 }
 
 object fabricaDeEnemigos {

@@ -33,7 +33,7 @@ class Nivel {
 		game.schedule(2500, {=>self.pasarNivel()})
 	}
 	
-	method pasarNivel()
+	method pasarNivel() {}
 
 	method agregarDecoracion(cantidad){
 		cantidad.times({ x => game.addVisual(self.obtenerDecoracion()) })
@@ -133,6 +133,11 @@ object nivel3 inherits Nivel {
 
 object nivel4 inherits Nivel {
 	
+	override method iniciar() {
+		super()
+		monitor.esElUltimoNivel(true)		
+	}
+	
 	override method itemsDelNivel() {
 		return super() + [arco, baculo]
 	}
@@ -142,11 +147,6 @@ object nivel4 inherits Nivel {
 		super()
 	}
 
-	override method agregarPuerta(){
-		// sin puerta
-	}
-	
-	override method pasarNivel(){
-		// nivel final
-	}
+	override method agregarPuerta() {}
+	override method pasarNivel() {}
 }

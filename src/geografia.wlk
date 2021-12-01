@@ -83,6 +83,11 @@ object abajo {
 }
 
 object direcciones {
+	var  bordeInferiorOIzquierdo = 0
+	var  bordeDerecho = 14
+	var  bordeSuperior = 11
+	
+	
 	method lista() {
 		return [abajo, izquierda, arriba, derecha]
 	}
@@ -91,8 +96,21 @@ object direcciones {
 		return self.lista().anyOne()
 	}
 
+	method actualizarBordesParaNivelFinal() {
+		bordeDerecho += 1
+		bordeSuperior -= 1
+		bordeInferiorOIzquierdo -= 1
+	}
+	
+	method initialize() {
+		bordeInferiorOIzquierdo = 0
+		bordeDerecho = 14
+		bordeSuperior = 11
+	}
+	
 	method esUnBorde(posicion) {
-		return posicion.y() == 0 || posicion.y() == 11 || posicion.x() == 0 || posicion.x() == 14
+		return posicion.y() == bordeInferiorOIzquierdo || posicion.y() == bordeSuperior ||
+			   posicion.x() == bordeInferiorOIzquierdo || posicion.x() == bordeDerecho
 	}
 	
 	method estaVacio(posicion) {

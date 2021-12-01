@@ -3,6 +3,7 @@ import personaje.*
 import geografia.*
 import misc.*
 import randomizer.*
+import enemigos.*
 
 object ataqueEnemigo inherits Polimorfi {
 	
@@ -159,10 +160,37 @@ class Municion inherits Polimorfi {
 	}	
 }
 
-const arco = new ArmaADistancia(nombre = "arco", danio = 1, nombreMunicion = "flecha")
-const rama = new ArmaCorta(nombre = "rama", danio = 5)
+class AtaqueBoss inherits Polimorfi {
+	const property position = abajo.siguiente(boss.position())
+	method image() = "ataqueBoss.png"
+	
+	method configurarColision() {
+		game.onCollideDo(self, {personaje => 
+			self.desaparecer()
+			personaje.recibirDanio(2, abajo)
+		})
+	}
+	
+	method avanzar() {
+		if (self.enJuego()) {
+			abajo.avanzarUno(position)
+		} else {self.desaparecer()}
+	}
+	
+	method desaparecer() {
+		game.removeTickEvent("Movimiento de " + self.identity())
+		game.removeVisual(self)
+	}
+	
+	method enJuego() {
+		return position.x() > 0
+	}
+}
+
+const arco = new ArmaADistancia(nombre = "arco", danio = 2, nombreMunicion = "flecha")
+const rama = new ArmaCorta(nombre = "rama", danio = 2)
 const manos = new Manos()
-const baculo = new ArmaADistancia(nombre = "baculo", danio = 2, nombreMunicion = "bolaDeFuego")
+const baculo = new ArmaADistancia(nombre = "baculo", danio = 3, nombreMunicion = "bolaDeFuego")
 
 
  
