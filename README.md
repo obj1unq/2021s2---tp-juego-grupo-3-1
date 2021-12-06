@@ -19,6 +19,6 @@ Tenés que matar bichitos e intentar no morir.
 
 ## Otros
 
-UNQ - Programación con objetos 1
+- UNQ - Programación con objetos 1
 - Wollok 3
 - Una vez terminado, no tenemos problemas en que el repositorio sea público (también se aceptan donaciones millonarias para expandir el desarrollo).
